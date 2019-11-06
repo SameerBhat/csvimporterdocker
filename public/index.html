@@ -64,6 +64,15 @@ div{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+
+#tableHead td{
+    position: sticky;
+    top:0;
+    background: steelblue;
+    color: white;
+}
+
+
 </style>
 <body>
 <div>
@@ -166,13 +175,19 @@ function getCSV(){
                     
                     if (cells.length > 1) {
                         var row = table.insertRow(-1);
-                        
+                        if(i ==0){
+                            row.setAttribute("id","tableHead");
+                         
+                        }
                         for (var j = 0; j < cells.length; j++) {
                             var cell = row.insertCell(-1);
                             var id= "topic"+i+"c"+j;
                             var promiseid = "promise"+i+"c"+j;
                             cell.innerHTML = cells[j];
                             if (i ==0){
+                                if(j==4){
+                                    console.log(cell);
+                                }
                                 cell.innerHTML = "<b>" + cells[j] + "</b>";
                                 
                             }
@@ -233,7 +248,10 @@ function getCSV(){
         }
   
 
+
 }
 </script>
+
+
 </body>
 </html>
