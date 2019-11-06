@@ -157,6 +157,9 @@ function getCSV(){
                 table.setAttribute("class","table table-hover");
                 
                 var rows = e.target.result.split("\n");
+                if(rows[rows.length-1].length ==0){
+                    rows.splice(rows.length-1,1)
+                }
                 var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,word1,promise_phrase1,promise2,word2,promise_phrase2,TOPIC1,key_words1,pharse1,TOPIC2,key_words2,pharse2,sentiment_phrase1,sentiment_phrase2,';
                     rows[0] = firstRowText;
 
