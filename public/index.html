@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet"
+	href="lib/bootstrap.min.css">
+    <script
+    src="lib/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+<script src="lib/bootstrap.min.js"></script>
+<title>ANN</title>
+</head>
+<style>
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 50%;
+	length:50%
+}
+
+th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+	background-color: "#5868c5";
+}
+
+td {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+	color: #464C4C;
+}
+
+tr {
+	color: #464C4C;
+}
+
+p {
+	display: block;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: 0;
+	margin-right: 0;
+}
+textarea {
+    width:600px;
+    padding: 3px;
+    border: none;
+    }
+h1{
+    border-radius: 5px;
+    background-color: #d3d3d3;
+    color:#cf0000;
+}    
+button{
+    border-radius: 10px;
+    font:bold;
+    background-color: #d3d3d3;
+    color:#cf0000;
+}
+div{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+</style>
+<body>
+<div>
+<h1 align="middle" >Agent's Notes Labeling Tool </h1>
+</div>
+
+<div><input type="file" id="fileUpload"  /><br/>
+</div>
+
+    <div>
+<button type="button" class="btn button" id="Submit" hidden="false"
+                                        onclick="getCSV();"><b>Upload CSV</b></button>
+                                        <button type="button" class="btn button" id="Save" 
+    onclick="exportTableToCSV();"><b>SAVE</b></button></div><br />
+</div>
+
+<div class = "csv" id = "csv">
+
+</div>
+
+<script>
+function exportTableToCSV() {
+var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+    
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+        
+        for (var j = 0; j < cols.length; j++) {
+           if(i>0){
+            if(j== 12 || j==15 ){
+                var d = "topic"+i+"c"+j;
+                
+                var e = document.getElementById(d);
+                var strVlaue = e.options[e.selectedIndex].text;
+                row.push(strVlaue.trim());
+            }
+            else if(j== 6 || j==9){
+                var dp = "promise"+i+"c"+j;
+                
+                var ep = document.getElementById(dp);
+                var strVlaue = ep.options[ep.selectedIndex].text;
+                row.push(strVlaue.trim());
+            }
+            else
+            {
+            row.push(cols[j].innerText.trim());
+            }
+           }
+           else{row.push(cols[j].innerText.trim());}
+        }
+        csv.push(row.join(","));        
+    }
+
+    // Download CSV file
+    download_csv(csv.join("\n"), filename);
+   
+}
+function download_csv(csv, filename) {
+    var csvFile;
+    var downloadLink;
+    csvFile = new Blob([csv], {type: "text/csv"});
+    downloadLink = document.createElement("a");
+    downloadLink.download = filename;
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+}
+
+function getCSV(){
+    document.getElementById("Submit").setAttribute("hidden","true");
+	var fileUpload =  document.getElementById("fileUpload");
+	var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+	
+        if (typeof (FileReader) != "undefined") {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var table = document.createElement("table");
+                table.setAttribute("id","newTable");
+                table.setAttribute("class","table table-hover");
+                
+                var rows = e.target.result.split("\n");
+                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,word1,promise_phrase1,promise2,word2,promise_phrase2,TOPIC1,key_words1,pharse1,TOPIC2,key_words2,pharse2,sentiment_phrase1,sentiment_phrase2,';
+                    rows[0] = firstRowText;
+
+                
+                var textBox=document.createElement('input');
+                textBox.type = "text";
+                for (var i = 0; i < rows.length; i++) {
+                   
+                    var cells = rows[i].split(",");
+                   if(i != 0 && cells.length != 20){
+                    rows[i] = rows[i]+',,,,,,';
+                    cells = rows[i].split(",");
+                   }
+                   
+                    
+                    
+                    if (cells.length > 1) {
+                        var row = table.insertRow(-1);
+                        
+                        for (var j = 0; j < cells.length; j++) {
+                            var cell = row.insertCell(-1);
+                            var id= "topic"+i+"c"+j;
+                            var promiseid = "promise"+i+"c"+j;
+                            cell.innerHTML = cells[j];
+                            if (i ==0){
+                                cell.innerHTML = "<b>" + cells[j] + "</b>";
+                                
+                            }
+                             if(i >0 && cells[j] ==""){
+                              
+                            if(j== 12 || j==15 )
+                           
+                            {
+                                cell.innerHTML = "<div contenteditable><select id="+id+"><option></option><option>Internet</option><option>i_Account_setup</option><option>i_Can_t_connect_all</option><option>i_Can_t_connect_device</option><option>i_Customer_Equipment</option><option>i_Email</option><option>i_Mobile_TV_apps</option><option>i_Slow_connection</option><option>i_Wi_Fi</option><option>Phone</option><option>p_All_Services_out</option><option>p_Calling_features</option><option>p_Can_t_be_called</option><option>p_Can_t_call_long_distance</option><option>p_Can_t_call_out</option><option>p_CPE_Jacks</option><option>p_Miscellaneous</option><option>p_No_Dial_Tone</option><option>p_Noise_Static</option><option>p_ONT_battery</option><option>p_Order_billing</option><option>p_Physical_Outside</option><option>p_Self_install</option><option>p_Voicemail</option><option>TV</option><option>t_All_channels_out</option><option>t_Audio_problems</option><option>t_Cable_card</option><option>t_Caller_ID_on_TV</option><option>t_Customer_Equipment</option><option>t_DVR_functionality</option><option>t_Interactive_Media_Guide</option><option>t_Mobile_TV_apps</option><option>t_On_Demand</option><option>t_Pay_per_view</option><option>t_Remote_controls</option><option>t_Set_top_box_problems</option><option>t_Some_Channels_Out</option><option>t_STB_activation</option><option>t_TV_content_questions</option><option>OTHER</option></select></div>"
+                            }
+                           else  if(j== 6 || j==9)
+                           
+                           {
+                               cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option></select></div>"
+                           }else if(j==4){
+                            cell.innerHTML = "<div contenteditable style='width:330px;'></div>";
+                           }
+
+                            else{
+                                
+                                cell.innerHTML = "<div contenteditable></div>";
+                            }
+                           
+                            
+                            }
+                            else if (i >0 && cells[j] !=""){
+                                   
+                                if(j== 12 || j==15 )
+                           
+                           {
+                               cell.innerHTML = "<div contenteditable><select id="+id+"><option> "+cells[j]+"</option><option>Internet</option><option>i_Account_setup</option><option>i_Can_t_connect_all</option><option>i_Can_t_connect_device</option><option>i_Customer_Equipment</option><option>i_Email</option><option>i_Mobile_TV_apps</option><option>i_Slow_connection</option><option>i_Wi_Fi</option><option>Phone</option><option>p_All_Services_out</option><option>p_Calling_features</option><option>p_Can_t_be_called</option><option>p_Can_t_call_long_distance</option><option>p_Can_t_call_out</option><option>p_CPE_Jacks</option><option>p_Miscellaneous</option><option>p_No_Dial_Tone</option><option>p_Noise_Static</option><option>p_ONT_battery</option><option>p_Order_billing</option><option>p_Physical_Outside</option><option>p_Self_install</option><option>p_Voicemail</option><option>TV</option><option>t_All_channels_out</option><option>t_Audio_problems</option><option>t_Cable_card</option><option>t_Caller_ID_on_TV</option><option>t_Customer_Equipment</option><option>t_DVR_functionality</option><option>t_Interactive_Media_Guide</option><option>t_Mobile_TV_apps</option><option>t_On_Demand</option><option>t_Pay_per_view</option><option>t_Remote_controls</option><option>t_Set_top_box_problems</option><option>t_Some_Channels_Out</option><option>t_STB_activation</option><option>t_TV_content_questions</option><option>OTHER</option></select></div>"
+                           }
+                          else  if(j== 6 || j==9)
+                          
+                          {
+                              cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option>"+cells[j]+"</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option></select></div>"
+                          }else if(j==4){
+                            cell.innerHTML = "<div contenteditable style='width:330px;'>"+cells[j]+"</div>";
+                           }
+                          else{
+
+                              
+                            cell.innerHTML = "<div contenteditable>"+cells[j]+"</div>";
+                          }
+                          
+                            }
+                            
+                        }
+                    }
+                }
+                var dvCSV = document.getElementById("csv");
+                dvCSV.innerHTML = "";
+                dvCSV.appendChild(table);
+            }
+            reader.readAsText(fileUpload.files[0]);
+        } else {
+            alert("This browser does not support HTML5.");
+        }
+  
+
+}
+</script>
+</body>
+</html>
