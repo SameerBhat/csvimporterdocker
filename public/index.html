@@ -10,7 +10,6 @@
     crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
 <title>ANN</title>
 </head>
 <style>
@@ -18,7 +17,12 @@ table {
 	font-family: arial, sans-serif;
 	border-collapse: collapse;
 	width: 50%;
-	length:50%
+	length:50%;
+ 
+}
+
+div#csv{
+    margin-bottom: 52px !important;
 }
 
 th {
@@ -67,6 +71,26 @@ div{
 }
 
 
+.speaker2,.table-hover>tbody>tr.speaker2:hover,table>tbody>tr.speaker2>td {
+    background: #dc3545;
+    color: #fff !important;
+}
+
+tr.speaker2>td>div>select{
+    color: #000 !important;
+}
+
+.speaker1,.table-hover>tbody>tr.speaker1:hover,table>tbody>tr.speaker1>td {
+    background: #28a745;
+    color: #fff !important;
+}
+
+tr.speaker1>td>div>select{
+    color: #000 !important;
+}
+
+
+
 #tableHead td{
     position: sticky;
     top:0;
@@ -74,12 +98,24 @@ div{
     color: white;
 }
 
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 4px 6px;
+}
+
+
+
+
+
+
 
 </style>
 <body>
 <div>
 <h1 align="middle" >Agent's Notes Labeling Tool </h1>
 </div>
+
 
 <div><input type="file" id="fileUpload"  /><br/>
 </div>
@@ -89,26 +125,86 @@ div{
                                         onclick="getCSV();"><b>Upload CSV</b></button>
                                         <button type="button" class="btn button" id="Save" 
     onclick="exportTableToCSV();"><b>SAVE</b></button></div><br />
+    <span id="selectAgParent" style="display: none;"> <b>Selected Agent: </b><span id="selectAg"></span></span> 
 </div>
 
 <div class = "csv" id = "csv">
 
 </div>
 
+
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom" id="bottomNav" style="display: none;">
+  <div>
+    <ul class="nav navbar-nav" id="bottomNavContent">
+    
+    </ul>
+  </div>
+</nav>
+
+
+
+<!-- Modal -->
+<div id="agentModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+             
+              <h4 class="modal-title">Please Select the agent</h4>
+            </div>
+            <div class="modal-body">
+             
+                    <div class="form-group">
+                            <label for="agentDropdown">Who is Agent?</label>
+                            <select class="form-control" id="agentDropdown">
+                              <option value="Sp1" >Sp1</option>
+                              <option value="Sp2">Sp2</option>
+                              <option value="Both">Both</option>
+                              <option value="Neither">Neither</option>
+                            </select>
+                          </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" onclick="saveModal()">Save</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>
+
+
+
+
+
 <script>
+     
+
+
+var initialTableDataArray = [];
+
+var selectedAgent = '';
+
 function exportTableToCSV() {
+    var finalTableDataArray = [];
 var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
     var csv = [];
     var rows = document.querySelectorAll("table tr");
-    
+
+  
+
+    var def = ''
     for (var i = 0; i < rows.length; i++) {
-        var row = [], cols = rows[i].querySelectorAll("td, th");
-        
+        var row = [];
+         var cols = rows[i].querySelectorAll("td, th");
+       
         for (var j = 0; j < cols.length; j++) {
+        
            if(i>0){
             if(j== 12 || j==15 ){
                 var d = "topic"+i+"c"+j;
-                
                 var e = document.getElementById(d);
                 var strVlaue = e.options[e.selectedIndex].text;
                 row.push(strVlaue.trim());
@@ -122,15 +218,22 @@ var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
             }
             else
             {
-            row.push(cols[j].innerText.trim());
+            row.push(cols[j].textContent.trim());
             }
            }
-           else{row.push(cols[j].innerText.trim());}
+           else{row.push(cols[j].textContent.trim());}
+        }
+
+    
+        finalTableDataArray.push(row.join(""));
+       
+        if(initialTableDataArray[i] !=  finalTableDataArray[i]){
+             rows[i].lastChild.firstChild.textContent = selectedAgent;
         }
         csv.push(row.join(","));        
     }
 
-    // Download CSV file
+    initialTableDataArray = finalTableDataArray;
     download_csv(csv.join("\n"), filename);
    
 }
@@ -144,11 +247,25 @@ function download_csv(csv, filename) {
     downloadLink.style.display = "none";
     document.body.appendChild(downloadLink);
     downloadLink.click();
+    
+
+    
+ 
 }
 
 function getCSV(){
+
+    var columnNamesArray = [];
+
+
+    $('#agentModal').modal({
+    backdrop: 'static',
+    keyboard: false
+})
+  
     document.getElementById("Submit").setAttribute("hidden","true");
 	var fileUpload =  document.getElementById("fileUpload");
+   
 	var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
 	
         if (typeof (FileReader) != "undefined") {
@@ -159,43 +276,74 @@ function getCSV(){
                 table.setAttribute("class","table table-hover");
                 
                 var rows = e.target.result.split("\n");
+
+
+
+
                 if(rows[rows.length-1].length ==0){
                     rows.splice(rows.length-1,1)
                 }
-                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,word1,promise_phrase1,promise2,word2,promise_phrase2,TOPIC1,key_words1,pharse1,TOPIC2,key_words2,pharse2,sentiment_phrase1,sentiment_phrase2,';
+                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,word1,promise_phrase1,promise2,word2,promise_phrase2,TOPIC1,key_words1,pharse1,TOPIC2,key_words2,pharse2,sentiment_phrase1,sentiment_phrase2,agent';
                     rows[0] = firstRowText;
 
                 
                 var textBox=document.createElement('input');
                 textBox.type = "text";
+
+
+        
                 for (var i = 0; i < rows.length; i++) {
-                   
+
                     var cells = rows[i].split(",");
-                   if(i != 0 && cells.length != 20){
-                    rows[i] = rows[i]+',,,,,,';
+
+
+                   if(i != 0 && cells.length != 21){
+                    rows[i] = rows[i]+',,,,,,,';
                     cells = rows[i].split(",");
                    }
-                   
-                    
-                    
+
+   
                     if (cells.length > 1) {
+
                         var row = table.insertRow(-1);
+
+                            
+
                         if(i ==0){
                             row.setAttribute("id","tableHead");
                          
                         }
+
+
+                      var rowValue = [];
+
                         for (var j = 0; j < cells.length; j++) {
+
+
+                        
                             var cell = row.insertCell(-1);
                             var id= "topic"+i+"c"+j;
                             var promiseid = "promise"+i+"c"+j;
+
                             cell.innerHTML = cells[j];
+
+                            
+                            
                             if (i ==0){
-                                if(j==4){
-                                    console.log(cell);
-                                }
+
+                                
                                 cell.innerHTML = "<b>" + cells[j] + "</b>";
+                                var column = {}
+                                column.name = cells[j];
+                                column.id = j;
+                                columnNamesArray.push(column);
+
                                 
                             }
+
+                            cell.setAttribute("class", "col"+j);
+
+
                              if(i >0 && cells[j] ==""){
                               
                             if(j== 12 || j==15 )
@@ -206,9 +354,9 @@ function getCSV(){
                            else  if(j== 6 || j==9)
                            
                            {
-                               cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option></select></div>"
+                               cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
                            }else if(j==4){
-                            cell.innerHTML = "<div contenteditable style='width:330px;'></div>";
+                            cell.innerHTML = "<div contenteditable style='width:400px;'></div>";
                            }
 
                             else{
@@ -228,9 +376,14 @@ function getCSV(){
                           else  if(j== 6 || j==9)
                           
                           {
-                              cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option>"+cells[j]+"</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option></select></div>"
+                              cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option>"+cells[j]+"</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
                           }else if(j==4){
-                            cell.innerHTML = "<div contenteditable style='width:330px;'>"+cells[j]+"</div>";
+                            cell.innerHTML = "<div contenteditable style='width:400px;'>"+cells[j]+"</div>";
+
+                           }else if(j==3){
+
+                            cell.innerHTML = "<div contenteditable>"+cells[j]+"</div>";
+                            row.setAttribute("class",cells[j].toLowerCase());
                            }
                           else{
 
@@ -239,13 +392,39 @@ function getCSV(){
                           }
                           
                             }
-                            
+                            rowValue.push(cells[j].trim());
                         }
+                        initialTableDataArray.push(rowValue.join(""));
                     }
+
+                  
                 }
                 var dvCSV = document.getElementById("csv");
                 dvCSV.innerHTML = "";
                 dvCSV.appendChild(table);
+
+
+                var finalColumnsarr=   columnNamesArray.filter(function (el) {
+                        return el.name != '';
+                        });
+
+                        $('#bottomNav').css("display", "block");
+
+                $('#bottomNavContent').html('');
+                finalColumnsarr.forEach(element => {
+                    $('#bottomNavContent').append(`<li style="color:white; margin-right:8px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" checked> ${element.name}</li>`);
+            
+                });
+
+        
+                    $('.toggle-columns').change(function() {
+                        var value = this.value;
+                        if(this.checked) {
+                            $('.col'+value).show();
+                        }else{
+                            $('.col'+value).hide();
+                    }       
+                });            
             }
             reader.readAsText(fileUpload.files[0]);
         } else {
@@ -255,6 +434,18 @@ function getCSV(){
 
 
 }
+
+
+
+
+
+function saveModal(){
+    var mSelectedAgent = $("#agentDropdown").children("option:selected").val();
+            selectedAgent = mSelectedAgent;
+            $('#selectAgParent').show();
+            $('#selectAg').html(selectedAgent);
+}
+
 </script>
 
 
