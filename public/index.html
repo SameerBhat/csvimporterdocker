@@ -206,17 +206,23 @@ var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
             }
            }
            else{row.push(cols[j].textContent.trim());}
+
+           
         }
 
-    
-        row.pop();
-        finalTableDataArray.push(row.join(""));
+        var row2 = [...row]
+        row2.pop();
+        finalTableDataArray.push(row2.join(""));
        
         if(initialTableDataArray[i] !=  finalTableDataArray[i]){
             console.log("row edited is: "+i);
              rows[i].lastChild.firstChild.textContent = mSelectedAgent;
+             row[cols.length -1] = mSelectedAgent;
         }
-        csv.push(row.join(","));        
+       
+       var finalRow = row.join(",");
+       console.log(finalRow);
+        csv.push(finalRow);        
     }
 
   
@@ -281,11 +287,10 @@ function getCSV(){
 
         
                 for (var i = 0; i < rows.length; i++) {
-
                     var cells = rows[i].split(",");
 
-
-                   if(i != 0 && cells.length != 21){
+                   if(i != 0 && cells.length < 21){
+                     
                     rows[i] = rows[i]+',,,,,,,';
                     cells = rows[i].split(",");
                    }
@@ -382,9 +387,10 @@ function getCSV(){
                             }
                             rowValue.push(cells[j].trim());
                         }
-                        rowValue.pop();
-                        initialTableDataArray.push(rowValue.join(""));
-                       
+
+                        var rowValue2 = [...rowValue];
+                        rowValue2.pop();
+                        initialTableDataArray.push(rowValue2.join(""));
                     }
 
                   
