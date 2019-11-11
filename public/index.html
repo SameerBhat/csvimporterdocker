@@ -18,7 +18,6 @@ table {
 	border-collapse: collapse;
 	width: 50%;
 	length:50%;
- 
 }
 
 div#csv{
@@ -70,15 +69,15 @@ div{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-
+/* 
 .speaker2,.table-hover>tbody>tr.speaker2:hover,table>tbody>tr.speaker2>td {
     background: #dc3545;
     color: #fff !important;
-}
+} */
 
-tr.speaker2>td>div>select{
+/* tr.speaker2>td>div>select{
     color: #000 !important;
-}
+} */
 
 .speaker1,.table-hover>tbody>tr.speaker1:hover,table>tbody>tr.speaker1>td {
     background: #28a745;
@@ -125,7 +124,16 @@ tr.speaker1>td>div>select{
                                         onclick="getCSV();"><b>Upload CSV</b></button>
                                         <button type="button" class="btn button" id="Save" 
     onclick="exportTableToCSV();"><b>SAVE</b></button></div><br />
-    <span id="selectAgParent" style="display: none;"> <b>Selected Agent: </b><span id="selectAg"></span></span> 
+  
+    <div class="form-group" id="selectAgentContainer">
+        <label for="agentDropdown">Who is Agent?</label>
+        <select id="agentDropdown">
+          <option value="Sp1" selected>Sp1</option>
+          <option value="Sp2">Sp2</option>
+          <option value="Both">Both</option>
+          <option value="Neither">Neither</option>
+        </select>
+      </div>
 </div>
 
 <div class = "csv" id = "csv">
@@ -144,36 +152,7 @@ tr.speaker1>td>div>select{
 
 
 
-<!-- Modal -->
-<div id="agentModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-      
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-             
-              <h4 class="modal-title">Please Select the agent</h4>
-            </div>
-            <div class="modal-body">
-             
-                    <div class="form-group">
-                            <label for="agentDropdown">Who is Agent?</label>
-                            <select class="form-control" id="agentDropdown">
-                              <option value="Sp1" >Sp1</option>
-                              <option value="Sp2">Sp2</option>
-                              <option value="Both">Both</option>
-                              <option value="Neither">Neither</option>
-                            </select>
-                          </div>
 
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" onclick="saveModal()">Save</button>
-            </div>
-          </div>
-      
-        </div>
-      </div>
 
 
 
@@ -187,15 +166,18 @@ var initialTableDataArray = [];
 
 var selectedAgent = '';
 
+
+$('#selectAgentContainer').hide();
+  
+
 function exportTableToCSV() {
+    var mSelectedAgent = $("#agentDropdown").children("option:selected").val();
     var finalTableDataArray = [];
 var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
     var csv = [];
     var rows = document.querySelectorAll("table tr");
 
   
-
-    var def = ''
     for (var i = 0; i < rows.length; i++) {
         var row = [];
          var cols = rows[i].querySelectorAll("td, th");
@@ -225,13 +207,18 @@ var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
         }
 
     
+        row.pop();
         finalTableDataArray.push(row.join(""));
        
         if(initialTableDataArray[i] !=  finalTableDataArray[i]){
-             rows[i].lastChild.firstChild.textContent = selectedAgent;
+            console.log("row edited is: "+i);
+             rows[i].lastChild.firstChild.textContent = mSelectedAgent;
         }
         csv.push(row.join(","));        
     }
+
+  
+
 
     initialTableDataArray = finalTableDataArray;
     download_csv(csv.join("\n"), filename);
@@ -247,8 +234,9 @@ function download_csv(csv, filename) {
     downloadLink.style.display = "none";
     document.body.appendChild(downloadLink);
     downloadLink.click();
-    
 
+
+   
     
  
 }
@@ -258,11 +246,7 @@ function getCSV(){
     var columnNamesArray = [];
 
 
-    $('#agentModal').modal({
-    backdrop: 'static',
-    keyboard: false
-})
-  
+   
     document.getElementById("Submit").setAttribute("hidden","true");
 	var fileUpload =  document.getElementById("fileUpload");
    
@@ -272,6 +256,8 @@ function getCSV(){
             var reader = new FileReader();
             reader.onload = function (e) {
                 var table = document.createElement("table");
+                $('#selectAgentContainer').show();
+  
                 table.setAttribute("id","newTable");
                 table.setAttribute("class","table table-hover");
                 
@@ -394,7 +380,9 @@ function getCSV(){
                             }
                             rowValue.push(cells[j].trim());
                         }
+                        rowValue.pop();
                         initialTableDataArray.push(rowValue.join(""));
+                       
                     }
 
                   
@@ -438,13 +426,6 @@ function getCSV(){
 
 
 
-
-function saveModal(){
-    var mSelectedAgent = $("#agentDropdown").children("option:selected").val();
-            selectedAgent = mSelectedAgent;
-            $('#selectAgParent').show();
-            $('#selectAg').html(selectedAgent);
-}
 
 </script>
 
