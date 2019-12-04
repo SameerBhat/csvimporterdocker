@@ -205,6 +205,11 @@ tr.speaker1>td>div>select{
           <option value="Both">Both</option>
           <option value="Neither">Neither</option>
         </select>
+        <br>
+        <label for="cpn_name">Cpn Name</label>
+        <input id="cpn_name" type="text">
+
+
       </div>
 </div>
 
@@ -238,6 +243,7 @@ tr.speaker1>td>div>select{
 var initialTableDataArray = [];
 
 var selectedAgent = '';
+var cpn_name;
 
 
 $('#selectAgentContainer').hide();
@@ -333,6 +339,8 @@ function getCSV(){
 
     var columnNamesArray = [];
 
+    $('#cpn_name').val('')
+
 
    
     document.getElementById("Submit").setAttribute("hidden","true");
@@ -357,7 +365,7 @@ function getCSV(){
                 if(rows[rows.length-1].length ==0){
                     rows.splice(rows.length-1,1)
                 }
-                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,agent';
+                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,agent,cpn_name';
                     rows[0] = firstRowText;
 
                 
@@ -369,9 +377,9 @@ function getCSV(){
                 for (var i = 0; i < rows.length; i++) {
                     var cells = rows[i].split(",");
 
-                   if(i != 0 && cells.length < 22){
+                   if(i != 0 && cells.length < 23){
                      
-                    rows[i] = rows[i]+',,,,,,,,';
+                    rows[i] = rows[i]+',,,,,,,,,';
                     cells = rows[i].split(",");
                    }
 
@@ -457,6 +465,10 @@ function getCSV(){
 
                             cell.innerHTML = "<div contenteditable>"+cells[j]+"</div>";
                             row.setAttribute("class",cells[j].toLowerCase());
+                           }else if(j==22){
+                               $('#cpn_name').val(cells[j]);
+                            console.log(cells[j]);
+
                            }
                           else{
 
@@ -488,7 +500,15 @@ function getCSV(){
 
                 $('#bottomNavContent').html('');
                 finalColumnsarr.forEach(element => {
+                    if(element.name === 'cpn_name' ){
+                       $('.col'+element.id).hide();
+                        //console.log(element)
+                        cpn_name = element;
+
+                    }else{
                     $('#bottomNavContent').append(`<li style="color:white; margin-right:8px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" checked> ${element.name}</li>`);
+
+                    }
             
                 });
 
@@ -547,6 +567,12 @@ $('body').on('click', '.dropdown', function(event) {
     });
 
 
+$('#cpn_name').on('input', function() {
+    var value = $(this).val();
+    $('.col'+cpn_name.id).eq(1).html(value);
+
+ 
+});
 
 
 
