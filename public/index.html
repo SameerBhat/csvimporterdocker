@@ -258,7 +258,7 @@ var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
         for (var j = 0; j < cols.length; j++) {
         
            if(i>0){
-            if(j== 12 || j==15 ){
+            if(j== 13 || j==16 ){
                 var d = "topic"+i+"c"+j;
 
                 var e = document.getElementById(d);
@@ -294,7 +294,7 @@ var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
         finalTableDataArray.push(row2.join(""));
        
         if(initialTableDataArray[i] !=  finalTableDataArray[i]){
-           // console.log("row edited is: "+i);
+           console.log("row edited is: "+i);
              rows[i].lastChild.firstChild.textContent = mSelectedAgent;
              row[cols.length -1] = mSelectedAgent;
         }
@@ -357,7 +357,7 @@ function getCSV(){
                 if(rows[rows.length-1].length ==0){
                     rows.splice(rows.length-1,1)
                 }
-                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,word1,promise_phrase1,promise2,word2,promise_phrase2,TOPIC1,key_words1,pharse1,TOPIC2,key_words2,pharse2,sentiment_phrase1,sentiment_phrase2,agent';
+                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,agent';
                     rows[0] = firstRowText;
 
                 
@@ -369,9 +369,9 @@ function getCSV(){
                 for (var i = 0; i < rows.length; i++) {
                     var cells = rows[i].split(",");
 
-                   if(i != 0 && cells.length < 21){
+                   if(i != 0 && cells.length < 22){
                      
-                    rows[i] = rows[i]+',,,,,,,';
+                    rows[i] = rows[i]+',,,,,,,,';
                     cells = rows[i].split(",");
                    }
 
@@ -419,7 +419,7 @@ function getCSV(){
 
                              if(i >0 && cells[j] ==""){
                               
-                            if(j== 12 || j==15 )
+                            if(j== 13 || j==16 )
                            
                             {
                                 cell.innerHTML = " <div class='dropdown dropdown-inline'><a href='#' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' data-hover='dropdown' id='"+id+"'>Dropdown <span class='caret'></span></a><ul class='dropdown-menu' role='menu'><li class='dropdown'><a href='#' class='dropdown_opener'>Internet<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='Account_setup'><a href='#'>Account_setup</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_all'><a href='#'>i_Can_t_connect_all</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_device'><a href='#'>i_Can_t_connect_device</a></li><li class='dropdown_clickable' data-value='i_Customer_Equipment'><a href='#'>i_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='i_Email'><a href='#'>i_Email</a></li><li class='dropdown_clickable' data-value='i_Mobile_TV_apps'><a href='#'>i_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='i_Slow_connection'><a href='#'>i_Slow_connection</a></li><li class='dropdown_clickable' data-value='i_Wi_Fi'><a href='#'>i_Wi_Fi</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>Phone<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_Services_out'><a href='#'>All_Services_out</a></li><li class='dropdown_clickable' data-value='p_Calling_features'><a href='#'>p_Calling_features</a></li><li class='dropdown_clickable' data-value='p_Can_t_be_called'><a href='#'>p_Can_t_be_called</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_long_distance'><a href='#'>p_Can_t_call_long_distance</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_out'><a href='#'>p_Can_t_call_out</a></li><li class='dropdown_clickable' data-value='p_CPE_Jacks'><a href='#'>p_CPE_Jacks</a></li><li class='dropdown_clickable' data-value='p_Miscellaneous'><a href='#'>p_Miscellaneous</a></li><li class='dropdown_clickable' data-value='p_No_Dial_Tone'><a href='#'>p_No_Dial_Tone</a></li><li class='dropdown_clickable' data-value='p_Noise_Static'><a href='#'>p_Noise_Static</a></li><li class='dropdown_clickable' data-value='p_ONT_battery'><a href='#'>p_ONT_battery</a></li><li class='dropdown_clickable' data-value='p_Order_billing'><a href='#'>p_Order_billing</a></li><li class='dropdown_clickable' data-value='p_Physical_Outside'><a href='#'>p_Physical_Outside</a></li><li class='dropdown_clickable' data-value='p_Self_install'><a href='#'>p_Self_install</a></li><li class='dropdown_clickable' data-value='p_Voicemail'><a href='#'>p_Voicemail</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>TV<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_channels_out'><a href='#'>All_channels_out</a></li><li class='dropdown_clickable' data-value='t_Audio_problems'><a href='#'>t_Audio_problems</a></li><li class='dropdown_clickable' data-value='t_Cable_card'><a href='#'>t_Cable_card</a></li><li class='dropdown_clickable' data-value='t_Caller_ID_on_TV'><a href='#'>t_Caller_ID_on_TV</a></li><li class='dropdown_clickable' data-value='t_Customer_Equipment'><a href='#'>t_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='t_DVR_functionality'><a href='#'>t_DVR_functionality</a></li><li class='dropdown_clickable' data-value='t_Interactive_Media_Guide'><a href='#'>t_Interactive_Media_Guide</a></li><li class='dropdown_clickable' data-value='t_Mobile_TV_apps'><a href='#'>t_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='t_On_Demand'><a href='#'>t_On_Demand</a></li><li class='dropdown_clickable' data-value='t_Pay_per_view'><a href='#'>t_Pay_per_view</a></li><li class='dropdown_clickable' data-value='t_Remote_controls'><a href='#'>t_Remote_controls</a></li><li class='dropdown_clickable' data-value='t_Set_top_box_problems'><a href='#'>t_Set_top_box_problems</a></li><li class='dropdown_clickable' data-value='t_Some_Channels_Out'><a href='#'>t_Some_Channels_Out</a></li><li class='dropdown_clickable' data-value='t_STB_activation'><a href='#'>t_STB_activation</a></li><li class='dropdown_clickable' data-value='t_TV_content_questions'><a href='#'>t_TV_content_questions</a></li></ul></li><li class='divider'></li><li class='dropdown_clickable' data-value='Other'><a href='#'>Other</a></li></ul></div>"
@@ -441,7 +441,7 @@ function getCSV(){
                             }
                             else if (i >0 && cells[j] !=""){
                                    
-                                if(j== 12 || j==15 )
+                                if(j== 13 || j==16 )
                            
                            {
                                cell.innerHTML = "<div class='dropdown dropdown-inline'><a href='#' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' data-hover='dropdown' id='"+id+"'>"+cells[j]+" <span class='caret'></span></a><ul class='dropdown-menu' role='menu'><li class='dropdown'><a href='#' class='dropdown_opener'>Internet<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='Account_setup'><a href='#'>Account_setup</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_all'><a href='#'>i_Can_t_connect_all</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_device'><a href='#'>i_Can_t_connect_device</a></li><li class='dropdown_clickable' data-value='i_Customer_Equipment'><a href='#'>i_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='i_Email'><a href='#'>i_Email</a></li><li class='dropdown_clickable' data-value='i_Mobile_TV_apps'><a href='#'>i_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='i_Slow_connection'><a href='#'>i_Slow_connection</a></li><li class='dropdown_clickable' data-value='i_Wi_Fi'><a href='#'>i_Wi_Fi</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>Phone<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_Services_out'><a href='#'>All_Services_out</a></li><li class='dropdown_clickable' data-value='p_Calling_features'><a href='#'>p_Calling_features</a></li><li class='dropdown_clickable' data-value='p_Can_t_be_called'><a href='#'>p_Can_t_be_called</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_long_distance'><a href='#'>p_Can_t_call_long_distance</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_out'><a href='#'>p_Can_t_call_out</a></li><li class='dropdown_clickable' data-value='p_CPE_Jacks'><a href='#'>p_CPE_Jacks</a></li><li class='dropdown_clickable' data-value='p_Miscellaneous'><a href='#'>p_Miscellaneous</a></li><li class='dropdown_clickable' data-value='p_No_Dial_Tone'><a href='#'>p_No_Dial_Tone</a></li><li class='dropdown_clickable' data-value='p_Noise_Static'><a href='#'>p_Noise_Static</a></li><li class='dropdown_clickable' data-value='p_ONT_battery'><a href='#'>p_ONT_battery</a></li><li class='dropdown_clickable' data-value='p_Order_billing'><a href='#'>p_Order_billing</a></li><li class='dropdown_clickable' data-value='p_Physical_Outside'><a href='#'>p_Physical_Outside</a></li><li class='dropdown_clickable' data-value='p_Self_install'><a href='#'>p_Self_install</a></li><li class='dropdown_clickable' data-value='p_Voicemail'><a href='#'>p_Voicemail</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>TV<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_channels_out'><a href='#'>All_channels_out</a></li><li class='dropdown_clickable' data-value='t_Audio_problems'><a href='#'>t_Audio_problems</a></li><li class='dropdown_clickable' data-value='t_Cable_card'><a href='#'>t_Cable_card</a></li><li class='dropdown_clickable' data-value='t_Caller_ID_on_TV'><a href='#'>t_Caller_ID_on_TV</a></li><li class='dropdown_clickable' data-value='t_Customer_Equipment'><a href='#'>t_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='t_DVR_functionality'><a href='#'>t_DVR_functionality</a></li><li class='dropdown_clickable' data-value='t_Interactive_Media_Guide'><a href='#'>t_Interactive_Media_Guide</a></li><li class='dropdown_clickable' data-value='t_Mobile_TV_apps'><a href='#'>t_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='t_On_Demand'><a href='#'>t_On_Demand</a></li><li class='dropdown_clickable' data-value='t_Pay_per_view'><a href='#'>t_Pay_per_view</a></li><li class='dropdown_clickable' data-value='t_Remote_controls'><a href='#'>t_Remote_controls</a></li><li class='dropdown_clickable' data-value='t_Set_top_box_problems'><a href='#'>t_Set_top_box_problems</a></li><li class='dropdown_clickable' data-value='t_Some_Channels_Out'><a href='#'>t_Some_Channels_Out</a></li><li class='dropdown_clickable' data-value='t_STB_activation'><a href='#'>t_STB_activation</a></li><li class='dropdown_clickable' data-value='t_TV_content_questions'><a href='#'>t_TV_content_questions</a></li></ul></li><li class='divider'></li><li class='dropdown_clickable' data-value='Other'><a href='#'>Other</a></li></ul></div>"
@@ -548,17 +548,6 @@ $('body').on('click', '.dropdown', function(event) {
 
 
 
-
-// $('.dropdown_clickable').on('click', function(){
-//     var value = $(this).attr('data-value');
-//     if(value != 'Other'){
-//         $(this).closest('ul').closest('li').closest('ul').prev('a').html(value);
-//     }else{
-//         $(this).closest('ul').prev('a').html(value);
-
-//     }
-
-// });
 
 
 </script>
