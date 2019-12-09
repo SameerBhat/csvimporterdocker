@@ -239,7 +239,7 @@ var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
         for (var j = 0; j < cols.length; j++) {
         
            if(i>0){
-            if(j== 13 || j==16 ){
+            if(j== 12 || j==15 ){
                 var d = "topic"+i+"c"+j;
 
                 var e = document.getElementById(d);
@@ -253,7 +253,7 @@ var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
                 
                 row.push(strVlaue.trim());
             }
-            else if(j== 6 || j==9){
+            else if(j== 5 || j==8){
                 var dp = "promise"+i+"c"+j;
                 
                 var ep = document.getElementById(dp);
@@ -332,13 +332,16 @@ function getCSV(){
                 
                 var rows = e.target.result.split("\n");
 
+                console.log('original cols '+rows.length);
+
 
 
 
                 if(rows[rows.length-1].length ==0){
                     rows.splice(rows.length-1,1)
                 }
-                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,agent,cpn_name';
+
+                var firstRowText = 'fnum,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,cpn_name,agent';
                     rows[0] = firstRowText;
 
                 
@@ -350,10 +353,12 @@ function getCSV(){
                 for (var i = 0; i < rows.length; i++) {
                     var cells = rows[i].split(",");
 
-                   if(i != 0 && cells.length < 23){
+                   if(i != 0 && cells.length <= 21){
                      
-                    rows[i] = rows[i]+',,,,,,,,,';
+                    rows[i] = rows[i]+',,,,,,,,,,';
                     cells = rows[i].split(",");
+
+                    console.log('new cols '+cells.length)
                    }
 
    
@@ -400,16 +405,16 @@ function getCSV(){
 
                              if(i >0 && cells[j] ==""){
                               
-                            if(j== 13 || j==16 )
+                            if(j== 12 || j==15 )
                            
                             {
                                 cell.innerHTML = " <div class='dropdown dropdown-inline'><a href='#' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' data-hover='dropdown' id='"+id+"'>Dropdown <span class='caret'></span></a><ul class='dropdown-menu' role='menu'><li class='dropdown'><a href='#' class='dropdown_opener'>Internet<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='Account_setup'><a href='#'>Account_setup</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_all'><a href='#'>i_Can_t_connect_all</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_device'><a href='#'>i_Can_t_connect_device</a></li><li class='dropdown_clickable' data-value='i_Customer_Equipment'><a href='#'>i_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='i_Email'><a href='#'>i_Email</a></li><li class='dropdown_clickable' data-value='i_Mobile_TV_apps'><a href='#'>i_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='i_Slow_connection'><a href='#'>i_Slow_connection</a></li><li class='dropdown_clickable' data-value='i_Wi_Fi'><a href='#'>i_Wi_Fi</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>Phone<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_Services_out'><a href='#'>All_Services_out</a></li><li class='dropdown_clickable' data-value='p_Calling_features'><a href='#'>p_Calling_features</a></li><li class='dropdown_clickable' data-value='p_Can_t_be_called'><a href='#'>p_Can_t_be_called</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_long_distance'><a href='#'>p_Can_t_call_long_distance</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_out'><a href='#'>p_Can_t_call_out</a></li><li class='dropdown_clickable' data-value='p_CPE_Jacks'><a href='#'>p_CPE_Jacks</a></li><li class='dropdown_clickable' data-value='p_Miscellaneous'><a href='#'>p_Miscellaneous</a></li><li class='dropdown_clickable' data-value='p_No_Dial_Tone'><a href='#'>p_No_Dial_Tone</a></li><li class='dropdown_clickable' data-value='p_Noise_Static'><a href='#'>p_Noise_Static</a></li><li class='dropdown_clickable' data-value='p_ONT_battery'><a href='#'>p_ONT_battery</a></li><li class='dropdown_clickable' data-value='p_Order_billing'><a href='#'>p_Order_billing</a></li><li class='dropdown_clickable' data-value='p_Physical_Outside'><a href='#'>p_Physical_Outside</a></li><li class='dropdown_clickable' data-value='p_Self_install'><a href='#'>p_Self_install</a></li><li class='dropdown_clickable' data-value='p_Voicemail'><a href='#'>p_Voicemail</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>TV<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_channels_out'><a href='#'>All_channels_out</a></li><li class='dropdown_clickable' data-value='t_Audio_problems'><a href='#'>t_Audio_problems</a></li><li class='dropdown_clickable' data-value='t_Cable_card'><a href='#'>t_Cable_card</a></li><li class='dropdown_clickable' data-value='t_Caller_ID_on_TV'><a href='#'>t_Caller_ID_on_TV</a></li><li class='dropdown_clickable' data-value='t_Customer_Equipment'><a href='#'>t_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='t_DVR_functionality'><a href='#'>t_DVR_functionality</a></li><li class='dropdown_clickable' data-value='t_Interactive_Media_Guide'><a href='#'>t_Interactive_Media_Guide</a></li><li class='dropdown_clickable' data-value='t_Mobile_TV_apps'><a href='#'>t_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='t_On_Demand'><a href='#'>t_On_Demand</a></li><li class='dropdown_clickable' data-value='t_Pay_per_view'><a href='#'>t_Pay_per_view</a></li><li class='dropdown_clickable' data-value='t_Remote_controls'><a href='#'>t_Remote_controls</a></li><li class='dropdown_clickable' data-value='t_Set_top_box_problems'><a href='#'>t_Set_top_box_problems</a></li><li class='dropdown_clickable' data-value='t_Some_Channels_Out'><a href='#'>t_Some_Channels_Out</a></li><li class='dropdown_clickable' data-value='t_STB_activation'><a href='#'>t_STB_activation</a></li><li class='dropdown_clickable' data-value='t_TV_content_questions'><a href='#'>t_TV_content_questions</a></li></ul></li><li class='divider'></li><li class='dropdown_clickable' data-value='Other'><a href='#'>Other</a></li></ul></div>"
                             }
-                           else  if(j== 6 || j==9)
+                           else  if(j== 5 || j==8)
                            
                            {
                                cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
-                           }else if(j==4){
+                           }else if(j==3){
                             cell.innerHTML = "<div contenteditable style='width:400px;'></div>";
                            }
 
@@ -422,22 +427,22 @@ function getCSV(){
                             }
                             else if (i >0 && cells[j] !=""){
                                    
-                                if(j== 13 || j==16 )
+                                if(j== 12 || j==15 )
                            
                            {
                                cell.innerHTML = "<div class='dropdown dropdown-inline'><a href='#' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' data-hover='dropdown' id='"+id+"'>"+cells[j]+" <span class='caret'></span></a><ul class='dropdown-menu' role='menu'><li class='dropdown'><a href='#' class='dropdown_opener'>Internet<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='Account_setup'><a href='#'>Account_setup</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_all'><a href='#'>i_Can_t_connect_all</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_device'><a href='#'>i_Can_t_connect_device</a></li><li class='dropdown_clickable' data-value='i_Customer_Equipment'><a href='#'>i_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='i_Email'><a href='#'>i_Email</a></li><li class='dropdown_clickable' data-value='i_Mobile_TV_apps'><a href='#'>i_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='i_Slow_connection'><a href='#'>i_Slow_connection</a></li><li class='dropdown_clickable' data-value='i_Wi_Fi'><a href='#'>i_Wi_Fi</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>Phone<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_Services_out'><a href='#'>All_Services_out</a></li><li class='dropdown_clickable' data-value='p_Calling_features'><a href='#'>p_Calling_features</a></li><li class='dropdown_clickable' data-value='p_Can_t_be_called'><a href='#'>p_Can_t_be_called</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_long_distance'><a href='#'>p_Can_t_call_long_distance</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_out'><a href='#'>p_Can_t_call_out</a></li><li class='dropdown_clickable' data-value='p_CPE_Jacks'><a href='#'>p_CPE_Jacks</a></li><li class='dropdown_clickable' data-value='p_Miscellaneous'><a href='#'>p_Miscellaneous</a></li><li class='dropdown_clickable' data-value='p_No_Dial_Tone'><a href='#'>p_No_Dial_Tone</a></li><li class='dropdown_clickable' data-value='p_Noise_Static'><a href='#'>p_Noise_Static</a></li><li class='dropdown_clickable' data-value='p_ONT_battery'><a href='#'>p_ONT_battery</a></li><li class='dropdown_clickable' data-value='p_Order_billing'><a href='#'>p_Order_billing</a></li><li class='dropdown_clickable' data-value='p_Physical_Outside'><a href='#'>p_Physical_Outside</a></li><li class='dropdown_clickable' data-value='p_Self_install'><a href='#'>p_Self_install</a></li><li class='dropdown_clickable' data-value='p_Voicemail'><a href='#'>p_Voicemail</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>TV<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_channels_out'><a href='#'>All_channels_out</a></li><li class='dropdown_clickable' data-value='t_Audio_problems'><a href='#'>t_Audio_problems</a></li><li class='dropdown_clickable' data-value='t_Cable_card'><a href='#'>t_Cable_card</a></li><li class='dropdown_clickable' data-value='t_Caller_ID_on_TV'><a href='#'>t_Caller_ID_on_TV</a></li><li class='dropdown_clickable' data-value='t_Customer_Equipment'><a href='#'>t_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='t_DVR_functionality'><a href='#'>t_DVR_functionality</a></li><li class='dropdown_clickable' data-value='t_Interactive_Media_Guide'><a href='#'>t_Interactive_Media_Guide</a></li><li class='dropdown_clickable' data-value='t_Mobile_TV_apps'><a href='#'>t_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='t_On_Demand'><a href='#'>t_On_Demand</a></li><li class='dropdown_clickable' data-value='t_Pay_per_view'><a href='#'>t_Pay_per_view</a></li><li class='dropdown_clickable' data-value='t_Remote_controls'><a href='#'>t_Remote_controls</a></li><li class='dropdown_clickable' data-value='t_Set_top_box_problems'><a href='#'>t_Set_top_box_problems</a></li><li class='dropdown_clickable' data-value='t_Some_Channels_Out'><a href='#'>t_Some_Channels_Out</a></li><li class='dropdown_clickable' data-value='t_STB_activation'><a href='#'>t_STB_activation</a></li><li class='dropdown_clickable' data-value='t_TV_content_questions'><a href='#'>t_TV_content_questions</a></li></ul></li><li class='divider'></li><li class='dropdown_clickable' data-value='Other'><a href='#'>Other</a></li></ul></div>"
                            }
-                          else  if(j== 6 || j==9)
+                          else  if(j== 5 || j==8)
                           
                           {
                               cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option>"+cells[j]+"</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
-                          }else if(j==4){
+                          }else if(j==3){
                             cell.innerHTML = "<div contenteditable style='width:400px;'>"+cells[j]+"</div>";
 
                            }else if(j==3){
 
                             cell.innerHTML = "<div contenteditable>"+cells[j]+"</div>";
-                            row.setAttribute("class",cells[j].toLowerCase());
+                            // row.setAttribute("class",cells[j].toLowerCase());
                            }else if(j==22){
                                $('#cpn_name').val(cells[j]);
                             console.log(cells[j]);
@@ -474,11 +479,14 @@ function getCSV(){
                 $('#bottomNavContent').html('');
                 finalColumnsarr.forEach(element => {
                     if(element.name === 'cpn_name' ){
-                       $('.col'+element.id).hide();
-                        //console.log(element)
+
+                        
+                     //  $('.col'+element.id).hide();
+                        console.log(element)
                         cpn_name = element;
 
                     }else{
+
                     $('#bottomNavContent').append(`<li style="color:white; margin-right:8px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" checked> ${element.name}</li>`);
 
                     }

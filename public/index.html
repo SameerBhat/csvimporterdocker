@@ -338,7 +338,7 @@ function getCSV(){
                 if(rows[rows.length-1].length ==0){
                     rows.splice(rows.length-1,1)
                 }
-                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,agent,cpn_name';
+                var firstRowText = 'fnum,line,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,cpn_name,agent';
                     rows[0] = firstRowText;
 
                 
@@ -438,7 +438,7 @@ function getCSV(){
 
                             cell.innerHTML = "<div contenteditable>"+cells[j]+"</div>";
                             row.setAttribute("class",cells[j].toLowerCase());
-                           }else if(j==22){
+                           }else if(j==21){
                                $('#cpn_name').val(cells[j]);
                             console.log(cells[j]);
 
