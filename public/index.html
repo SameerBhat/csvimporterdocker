@@ -271,7 +271,12 @@ var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
         }
 
         var row2 = [...row]
-        row2.pop();
+
+        var start = row2.length - 3;
+                var end = row2.length -2;
+             
+
+                row2.splice(start, end);
         finalTableDataArray.push(row2.join(""));
        
         if(initialTableDataArray[i] !=  finalTableDataArray[i]){

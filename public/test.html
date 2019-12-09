@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <style>
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu>a:after {
+      content: "\f0da";
+      float: right;
+      border: none;
+      font-family: 'FontAwesome';
+    }
+
+    .dropdown-submenu>.dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+
+    .pointer {
+      cursor: pointer;
+    }
+
+
+
+
+    @media (min-width: 991px) {
+      .dropdown-menu {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+  </style>
+  <title>Document</title>
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+  <div class="nav-item dropdown">
+
+    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+      class="nav-link dropdown-toggle">Dropdown</a>
+
+    <ul aria-labelledby="dropdownMenu1" class="dropdown-menu border-0 shadow">
+
+    
+      <!-- Level two dropdown-->
+      <li class="dropdown-submenu">
+        <a id="dropdown-submenu1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          class="dropdown-item dropdown-toggle">Internet</a>
+        <ul aria-labelledby="dropdown-submenu1" class="dropdown-menu border-0 shadow">
+          <li class="dropdown-item" data-value="Account_setup"><span class="pointer" tabindex="-1">Account_setup</span>
+          </li>
+          <li class="dropdown-item" data-value="i_Can_t_connect_all"><span class="pointer">i_Can_t_connect_all</span>
+          </li>
+          <li class="dropdown-item" data-value="i_Can_t_connect_device"><span
+              class="pointer">i_Can_t_connect_device</span></li>
+          <li class="dropdown-item" data-value="i_Customer_Equipment"><span class="pointer">i_Customer_Equipment</span>
+          </li>
+          <li class="dropdown-item" data-value="i_Email"><span class="pointer">i_Email</span></li>
+          <li class="dropdown-item" data-value="i_Mobile_TV_apps"><span class="pointer">i_Mobile_TV_apps</span></li>
+          <li class="dropdown-item" data-value="i_Slow_connection"><span class="pointer">i_Slow_connection</span></li>
+          <li class="dropdown-item" data-value="i_Wi_Fi"><span class="pointer">i_Wi_Fi</span></li>
+
+
+        </ul>
+      </li>
+      <!-- End Level two -->
+
+
+
+      <li class="dropdown-submenu">
+          <a id="dropdown-submenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            class="dropdown-item dropdown-toggle">Phone</a>
+
+          <ul aria-labelledby="dropdown-submenu2" class="dropdown-menu border-0 shadow">
+
+            <li class="dropdown-item" data-value="Account_setup"><span class="pointer" tabindex="-2">Account_setup</span>
+            </li>
+
+            <li class="dropdown-item" data-value="i_Can_t_connect_all"><span class="pointer">i_Can_t_connect_all</span>
+            </li>
+            <li class="dropdown-item" data-value="i_Can_t_connect_device"><span
+                class="pointer">i_Can_t_connect_device</span></li>
+            <li class="dropdown-item" data-value="i_Customer_Equipment"><span class="pointer">i_Customer_Equipment</span>
+            </li>
+            <li class="dropdown-item" data-value="i_Email"><span class="pointer">i_Email</span></li>
+            <li class="dropdown-item" data-value="i_Mobile_TV_apps"><span class="pointer">i_Mobile_TV_apps</span></li>
+            <li class="dropdown-item" data-value="i_Slow_connection"><span class="pointer">i_Slow_connection</span></li>
+            <li class="dropdown-item" data-value="i_Wi_Fi"><span class="pointer">i_Wi_Fi</span></li>
+  
+  
+          </ul>
+        </li>
+
+
+
+
+   
+
+      <li class="dropdown-submenu">
+          <a id="dropdown-submenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            class="dropdown-item dropdown-toggle">Phone</a>
+
+          <ul aria-labelledby="dropdown-submenu3" class="dropdown-menu border-0 shadow">
+
+            <li class="dropdown-item" data-value="Account_setup"><span class="pointer" tabindex="-2">Account_setup</span>
+            </li>
+            
+            <li class="dropdown-item" data-value="i_Can_t_connect_all"><span class="pointer">i_Can_t_connect_all</span>
+            </li>
+            <li class="dropdown-item" data-value="i_Can_t_connect_device"><span
+                class="pointer">i_Can_t_connect_device</span></li>
+            <li class="dropdown-item" data-value="i_Customer_Equipment"><span class="pointer">i_Customer_Equipment</span>
+            </li>
+            <li class="dropdown-item" data-value="i_Email"><span class="pointer">i_Email</span></li>
+            <li class="dropdown-item" data-value="i_Mobile_TV_apps"><span class="pointer">i_Mobile_TV_apps</span></li>
+            <li class="dropdown-item" data-value="i_Slow_connection"><span class="pointer">i_Slow_connection</span></li>
+            <li class="dropdown-item" data-value="i_Wi_Fi"><span class="pointer">i_Wi_Fi</span></li>
+  
+  
+          </ul>
+        </li>
+
+
+        <li class="dropdown-divider"></li>
+
+
+
+        <li><a href="#" class="dropdown-item">Some action </a></li>
+
+    </ul>
+  </div>
+
+
+  <!-- For demo purpose -->
+  <section class="py-5 text-white">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-9 mx-auto text-center">
+          <h1 class="display-4">Bootstrap 4 Multilevel dropdown</h1>
+          <p class="lead mb-0">Step by step building a multilevel dropdown using Bootstrap 4.</p>
+          <p class="lead">Snippet by <a href="https://bootstrapious.com/snippets" class="text-white">
+              <u>Bootstrapious</u></a></p>
+        </div>
+      </div>
+      <div class="row pt-5">
+        <div class="col-lg-10 mx-auto">
+          <p class="lead">The first level is built by the default Bootstrap's dropdown menu.</p>
+          <p class="lead">The next levels are structurally similar to the first level, but they're wrapped into
+            <code>.dropdown-submneu</code> class instead of <code>.dropdown</code>.</p>
+          <p class="lead">In the subsequent levels, We position the <code>.dropdown-menu</code> using css to achieve the
+            desired location.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End -->
+
+  <script>
+    $(function () {
+      // ------------------------------------------------------- //
+      // Multi Level dropdowns
+      // ------------------------------------------------------ //
+      $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        $(this).siblings().toggleClass("show");
+
+
+        if (!$(this).next().hasClass('show')) {
+          $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+        }
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+          $('.dropdown-submenu .show').removeClass("show");
+        });
+
+      });
+    });
+
+  </script>
+</body>
+
+</html>

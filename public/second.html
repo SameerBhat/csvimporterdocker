@@ -1,558 +1,958 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">    
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>ANN</title>
+    <meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+    <title>ANN</title>
 </head>
 <style>
-table {
-	font-family: arial, sans-serif;
-	border-collapse: collapse;
-	width: 50%;
-	length:50%;
-}
-
-div#csv{
-    margin-bottom: 52px !important;
-}
-
-th {
-	border: 1px solid #dddddd;
-	text-align: center;
-	padding: 8px;
-	background-color: "#5868c5";
-}
-
-td {
-	border: 1px solid #dddddd;
-	text-align: left;
-	padding: 8px;
-	color: #464C4C;
-}
-
-tr {
-	color: #464C4C;
-}
-
-p {
-	display: block;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	margin-left: 0;
-	margin-right: 0;
-}
-textarea {
-    width:600px;
-    padding: 3px;
-    border: none;
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+        length: 50%;
     }
-h1{
-    border-radius: 5px;
-    background-color: #d3d3d3;
-    color:#cf0000;
-}    
-button{
-    border-radius: 10px;
-    font:bold;
-    background-color: #d3d3d3;
-    color:#cf0000;
-}
-div{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
+
+    div#csv {
+        margin-bottom: 52px !important;
+    }
+
+    th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        background-color: "#5868c5";
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        color: #464C4C;
+    }
+
+    tr {
+        color: #464C4C;
+    }
+
+    p {
+        display: block;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    textarea {
+        width: 600px;
+        padding: 3px;
+        border: none;
+    }
+
+    h1 {
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 700;
+
+
+    }
+
+    button {
+        border-radius: 10px;
+        font: bold;
+        background-color: #d3d3d3;
+        color: #cf0000;
+    }
+
+    div {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
 
 
 
-.speaker1,.table-hover>tbody>tr.speaker1:hover,table>tbody>tr.speaker1>td {
-    background: #28a745;
-    color: #fff !important;
-}
+    .speaker1,
+    .table-hover>tbody>tr.speaker1:hover,
+    table>tbody>tr.speaker1>td {
+        background: #28a745;
+        color: #fff !important;
+    }
 
-tr.speaker1>td>div>select{
-    color: #000 !important;
-}
-
-
-
-#tableHead td{
-    position: sticky;
-    top:0;
-    background: steelblue;
-    color: white;
-}
-
-.nav>li>a {
-    position: relative;
-    display: block;
-    padding: 4px 6px;
-}
-
-
-/* STYLES FOR MULTI LEVEL DROPDOWN */
-.dropdown .dropdown-menu .caret {
-	border: 4px solid transparent;
-	border-left-color: #000;
-	float: right;
-	margin-top: 6px;
-} 
-.dropdown-menu {
-  min-width: 250px;
-}
-.dropdown-menu > li.open > a {
-	background-color: #F5F5F5;
-	color: #262626;
-	text-decoration: none;
-}
-.dropdown-menu .dropdown-menu {
-	left: 100%;
-	margin: 0;
-	right: auto;
-	top: -1px;
-}
-.dropdown-menu-right .dropdown-menu,
-.navbar-right .dropdown-menu .dropdown-menu,
-.pull-right .dropdown-menu .dropdown-menu {
-	left: auto;
-	right: 100%;
-}
-.dropdown-menu.animated {
-  -webkit-animation-duration: 0.3s;
-          animation-duration: 0.3s;
-}
-.dropdown-menu.animated:before {
-  content: " ";
-  display: block;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 99;
-}
-.dropdownhover-top {
-	margin-bottom: 2px;
-	margin-top: 0;
-}
-.navbar-fixed-bottom .dropdown-menu .dropdown-menu,
-.dropdownhover-top .dropdown-menu {
-	bottom: -1px;
-	top: auto;
-}
-
-.navbar-nav > li > .dropdown-menu {
-	margin-bottom: 0;
-}
-
-.dropdownhover-bottom {
-	-webkit-transform-origin: 50% 0;
-			transform-origin: 50% 0;
-}
-.dropdownhover-left {
-	-webkit-transform-origin: 100% 50%;
-			transform-origin: 100% 50%;
-}
-.dropdownhover-right {
-	-webkit-transform-origin: 0 50%;
-			transform-origin: 0 50%;
-}
-.dropdownhover-top {
-	-webkit-transform-origin: 50% 100%;
-			transform-origin: 50% 100%;
-}
+    tr.speaker1>td>div>select {
+        color: #000 !important;
+    }
 
 
 
+    #tableHead td {
+        position: sticky;
+        top: 82px;
+        background: steelblue;
+        color: white;
+    }
+
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 4px 6px;
+    }
 
 
+    /* STYLES FOR MULTI LEVEL DROPDOWN */
+    .dropdown .dropdown-menu .caret {
+        border: 4px solid transparent;
+        border-left-color: #000;
+        float: right;
+        margin-top: 6px;
+    }
+
+    .dropdown-menu {
+        min-width: 250px;
+    }
+
+    .dropdown-menu>li.open>a {
+        background-color: #F5F5F5;
+        color: #262626;
+        text-decoration: none;
+    }
+
+    .dropdown-menu .dropdown-menu {
+        left: 100%;
+        margin: 0;
+        right: auto;
+        top: -1px;
+    }
+
+    .dropdown-menu-right .dropdown-menu,
+    .navbar-right .dropdown-menu .dropdown-menu,
+    .pull-right .dropdown-menu .dropdown-menu {
+        left: auto;
+        right: 100%;
+    }
+
+    .dropdown-menu.animated {
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+    }
+
+    .dropdown-menu.animated:before {
+        content: " ";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 99;
+    }
+
+    .dropdownhover-top {
+        margin-bottom: 2px;
+        margin-top: 0;
+    }
+
+    .navbar-fixed-bottom .dropdown-menu .dropdown-menu,
+    .dropdownhover-top .dropdown-menu {
+        bottom: -1px;
+        top: auto;
+    }
+
+    .navbar-nav>li>.dropdown-menu {
+        margin-bottom: 0;
+    }
+
+    .dropdownhover-bottom {
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+    }
+
+    .dropdownhover-left {
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+    }
+
+    .dropdownhover-right {
+        -webkit-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+    }
+
+    .dropdownhover-top {
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+    .dropdown,
+    .dropup {
+
+        /* z-index: 1; */
+    }
+
+    .navbar-brand {
+        background-image: url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNjU4LjIgMTQ2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2NTguMiAxNDY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj48Zz48cG9seWdvbiBmaWxsPSIjRDUyQjFFIiBwb2ludHM9IjY0My43LDAgNjA3LjgsNzYuOCA1OTQuMyw0Ny43IDU3OS43LDQ3LjcgNjAxLjksOTUuMyA2MTMuNyw5NS4zIDY1OC4yLDAgCSIvPjxwYXRoIGQ9Ik00ODkuNywxNDIuNmgyOC45Vjg5LjdjMC0xMi4xLDctMjAuNiwxNy40LTIwLjZjMTAsMCwxNS4yLDcsMTUuMiwxNy4xdjU2LjRoMjguOVY4MC43YzAtMjEtMTIuNi0zNS44LTMzLTM1LjggYy0xMywwLTIyLjEsNS42LTI4LjksMTUuOGgtMC42di0xM2gtMjhMNDg5LjcsMTQyLjZMNDg5LjcsMTQyLjZ6IE00MzIuOSw0NS4xYy0zMC4yLDAtNTAuNCwyMS43LTUwLjQsNTAuMyBjMCwyOC40LDIwLjIsNTAuMyw1MC40LDUwLjNzNTAuNC0yMS45LDUwLjQtNTAuM0M0ODMuNCw2Ni44LDQ2My4xLDQ1LjEsNDMyLjksNDUuMXogTTQzMi43LDEyNC4zYy0xMy43LDAtMjEtMTEuNS0yMS0yOC45CWMwLTE3LjYsNy4yLTI4LjksMjEtMjguOWMxMy43LDAsMjEuMywxMS4zLDIxLjMsMjguOUM0NTQuMSwxMTIuOCw0NDYuNSwxMjQuMyw0MzIuNywxMjQuM3ogTTMwMC4xLDE0Mi42aDgxLjJ2LTIyLjhoLTQ2di0wLjYJbDQ0LTQ5LjNWNDcuNmgtNzkuMnYyMi45aDQ0LjV2MC42bC00NC41LDQ5LjdMMzAwLjEsMTQyLjZMMzAwLjEsMTQyLjZ6IE0yNjMsMTQyLjZoMjkuMVY0Ny43SDI2M1YxNDIuNnogTTE5NS41LDE0Mi42aDI5Vjk5CWMwLTE5LjgsMTEuOS0yOC42LDMwLTI2LjFoMC42di0yNWMtMS41LTAuNi0zLjItMC43LTUuOS0wLjdjLTExLjMsMC0xOC45LDUuMi0yNS40LDE2LjNoLTAuNlY0Ny43aC0yNy43VjE0Mi42eiBNMTQyLjMsMTI0LjQJYy0xMi44LDAtMjAuNi04LjMtMjIuMS0yMS4xaDY4LjRjMC4yLTIwLjQtNS4yLTM2LjctMTYuNS00Ni45Yy04LTcuNC0xOC41LTExLjUtMzEuOS0xMS41Yy0yOC42LDAtNDguNCwyMS43LTQ4LjQsNTAuMQljMCwyOC42LDE4LjksNTAuNCw1MC4zLDUwLjRjMTEuOSwwLDIxLjMtMy4yLDI5LjEtOC41YzguMy01LjcsMTQuMy0xNC4xLDE1LjktMjIuNGgtMjcuOEMxNTYuNiwxMjAuNywxNTAuOCwxMjQuNCwxNDIuMywxMjQuNHogTTE0MC44LDY1LjZjMTAuMiwwLDE3LjIsNy42LDE4LjQsMTguN2gtMzguOEMxMjIuNyw3My4xLDEyOC44LDY1LjYsMTQwLjgsNjUuNnogTTM0LDE0Mi42aDMwLjRsMzMtOTQuOUg2OC4zbC0xOC41LDYxaC0wLjQJbC0xOC41LTYxSDFMMzQsMTQyLjZ6IE0yNjMsMTMuOWgyOS4xdjI1LjhIMjYzVjEzLjl6Ii8+PC9nPjwvc3ZnPg==');
+        height: 50px;
+        width: 200px;
+        display: block;
+        background-repeat: no-repeat;
+
+    }
+
+    .navbar-light {
+        background-color: #ffffff !important;
+    }
+
+
+    .navbar {
+        border-bottom: 1px solid #d8dada;
+
+    }
+
+    .title-name {
+        background: url(https://ss7.vzw.com/is/image/VerizonWireless/exp-super-mini-banner-holiday-d?&scl=1) no-repeat center;
+        background-size: cover;
+        max-width: 100%;
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        height: 84px;
+        border-bottom: 1px solid #d8dada;
+    }
+
+    #bottomNavContent {
+        flex-direction: row;
+    }
+
+    #bottomNavContent>li {
+        display: inline !important;
+    }
+
+    #bottomNav {
+        padding: 0px;
+    }
 </style>
+
 <body>
-<div>
-<h1 align="middle" >Agent's Notes Labeling Tool </h1>
 
-<div class="text-center"> <span> <a href="/nap/readme.html" target="_blank">Click here</a> to find notes on promises </span></div>
-<div class="text-center"> <span> <a href="/nap/secondfile.html" target="_blank">Click here</a> to find second note  </span></div>
-</div>
+    <nav class="navbar fixed-top navbar-light bg-light py-3 pl-4">
+        <a class="navbar-brand" href="#">
+        </a>
+    </nav>
 
 
-<div><input type="file" id="fileUpload"  /><br/>
-</div>
+    <div style="margin-top: 83px; margin-bottom: 30px;">
+        <div class="title-name text-center">
+            <h1 style="padding: 18px;">Agent's Notes Labeling Tool</h1>
+        </div>
+
+        <div class="text-center mt-3"> <span> <a href="/nap/readme.html" target="_blank">Click here</a> to find notes on
+                promises </span></div>
+        <div class="text-center"> <span> <a href="/nap/secondfile.html" target="_blank">Click here</a> to find second
+                note </span></div>
+    </div>
+
+
+    <div class="form-row m-2">
+        <div class="col">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="fileUpload">
+                <label class="custom-file-label" for="customFile">Choose CSV file</label>
+            </div>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" id="Submit" onclick="getCSV();">Upload CSV</button>
+        </div>
+    </div>
+
+
+    <div id="selectAgentContainer">
+        <div class="form-row m-2">
+            <div class="col">
+                <div class="form-group">
+                    <label for="agentDropdown">Who is Agent?</label>
+                    <select id="agentDropdown" class="custom-select">
+                        <option value="Sp1" selected>Sp1</option>
+                        <option value="Sp2">Sp2</option>
+                        <option value="Both">Both</option>
+                        <option value="Neither">Neither</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="cpn_name">Cpn Name</label>
+                    <input class="form-control" id="cpn_name" type="text" placeholder="Cpn Name">
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+
+        <div class="form-row m-2">
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="ch1">Ch1</label>
+                    <input class="form-control" id="ch1" type="text" placeholder="Ch1">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="ch2">Ch2</label>
+                    <input class="form-control" id="ch2" type="text" placeholder="Ch2">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="ch3">Ch3</label>
+                    <input class="form-control" id="ch3" type="text" placeholder="Ch3">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="ch4">Ch4</label>
+                    <input class="form-control" id="ch4" type="text" placeholder="Ch4">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="ch5">Ch5</label>
+                    <input class="form-control" id="ch5" type="text" placeholder="Ch5">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="ch6">Ch6</label>
+                    <input class="form-control" id="ch6" type="text" placeholder="Ch6">
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="form-row m-2">
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="who_is_customer_dropdown_1">Who is Customer 1?</label>
+                    <select id="who_is_customer_dropdown_1" class="custom-select">
+
+                        <option value="Sp1" selected>Sp1</option>
+                        <option value="Sp2">Sp2</option>
+                        <option value="Both">Both</option>
+                        <option value="Neither">Neither</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="who_is_customer_dropdown_2">Who is Customer 2?</label>
+                    <select id="who_is_customer_dropdown_2" class="custom-select">
+
+                        <option value="Sp1" selected>Sp1</option>
+                        <option value="Sp2">Sp2</option>
+                        <option value="Both">Both</option>
+                        <option value="Neither">Neither</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="who_is_customer_dropdown_3">Who is Customer 3?</label>
+                    <select id="who_is_customer_dropdown_3" class="custom-select">
+
+                        <option value="Sp1" selected>Sp1</option>
+                        <option value="Sp2">Sp2</option>
+                        <option value="Both">Both</option>
+                        <option value="Neither">Neither</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="who_is_customer_dropdown_4">Who is Customer 4?</label>
+                    <select id="who_is_customer_dropdown_4" class="custom-select">
+
+                        <option value="Sp1" selected>Sp1</option>
+                        <option value="Sp2">Sp2</option>
+                        <option value="Both">Both</option>
+                        <option value="Neither">Neither</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="who_is_customer_dropdown_5">Who is Customer 5?</label>
+                    <select id="who_is_customer_dropdown_5" class="custom-select">
+
+                        <option value="Sp1" selected>Sp1</option>
+                        <option value="Sp2">Sp2</option>
+                        <option value="Both">Both</option>
+                        <option value="Neither">Neither</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="who_is_customer_dropdown_6">Who is Customer 6?</label>
+                    <select id="who_is_customer_dropdown_6" class="custom-select">
+
+                        <option value="Sp1" selected>Sp1</option>
+                        <option value="Sp2">Sp2</option>
+                        <option value="Both">Both</option>
+                        <option value="Neither">Neither</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
 
     <div>
-<button type="button" class="btn button" id="Submit" hidden="false"
-                                        onclick="getCSV();"><b>Upload CSV</b></button>
-                                        <button type="button" class="btn button" id="Save" 
-    onclick="exportTableToCSV();"><b>SAVE</b></button></div><br />
-  
-    <div class="form-group" id="selectAgentContainer">
-        <label for="agentDropdown">Who is Agent?</label>
-        <select id="agentDropdown">
-          <option value="Sp1" selected>Sp1</option>
-          <option value="Sp2">Sp2</option>
-          <option value="Both">Both</option>
-          <option value="Neither">Neither</option>
-        </select>
-        <br>
-        <label for="cpn_name">Cpn Name</label>
-        <input id="cpn_name" type="text">
 
 
-      </div>
-</div>
+        <button type="button" class="btn btn-success btn-block m-3" id="Save"
+            onclick="exportTableToCSV();"><b>SAVE</b></button></div>
+    <br />
 
-<div class = "csv" id = "csv">
 
-</div>
+    </div>
+
+    <div class="csv" id="csv">
+
+    </div>
 
 
 
-<nav class="navbar navbar-inverse navbar-fixed-bottom" id="bottomNav" style="display: none;">
-  <div>
-    <ul class="nav navbar-nav" id="bottomNavContent">
-    
-    </ul>
-  </div>
-</nav>
+    <nav class="navbar fixed-bottom navbar-inverse bg-dark" id="bottomNav" style="display: none;">
+        <div>
+            <ul id="bottomNavContent">
 
-<script>
+            </ul>
+        </div>
+    </nav>
 
-var initialTableDataArray = [];
-var selectedAgent = '';
-var cpn_name;
+    <script>
 
-$('#selectAgentContainer').hide();
-  
-function exportTableToCSV() {
-    var mSelectedAgent = $("#agentDropdown").children("option:selected").val();
-    var finalTableDataArray = [];
-var filename = "label_"+document.getElementById("fileUpload").files[0].name ;
-    var csv = [];
-    var rows = document.querySelectorAll("table tr");
+        var initialTableDataArray = [];
+        var selectedAgent = '';
+        var cpn_name;
 
-  
-    for (var i = 0; i < rows.length; i++) {
-        var row = [];
-         var cols = rows[i].querySelectorAll("td, th");
-       
-        for (var j = 0; j < cols.length; j++) {
-        
-           if(i>0){
-            if(j== 12 || j==15 ){
-                var d = "topic"+i+"c"+j;
-
-                var e = document.getElementById(d);
-
-                var strVlaue = '';
-                if(e.innerText.trim() == 'Dropdown'){
-                    strVlaue = '';
-                }else{
-                    strVlaue = e.innerText;
-                }
-                
-                row.push(strVlaue.trim());
-            }
-            else if(j== 5 || j==8){
-                var dp = "promise"+i+"c"+j;
-                
-                var ep = document.getElementById(dp);
-                var strVlaue = ep.options[ep.selectedIndex].text;
-                row.push(strVlaue.trim());
-            }
-            else
-            {
-            row.push(cols[j].textContent.trim());
-            }
-           }
-           else{row.push(cols[j].textContent.trim());}
-
-           
-        }
-
-        var row2 = [...row]
-        row2.pop();
-        finalTableDataArray.push(row2.join(""));
-       
-        if(initialTableDataArray[i] !=  finalTableDataArray[i]){
-           console.log("row edited is: "+i);
-             rows[i].lastChild.firstChild.textContent = mSelectedAgent;
-             row[cols.length -1] = mSelectedAgent;
-        }
-       
-       var finalRow = row.join(",");
-        csv.push(finalRow);        
-    }
-
-  
-    console.log('Initial array: '+initialTableDataArray[1]);
-    console.log('Final  array: '+finalTableDataArray[1]);
-
-
-    initialTableDataArray = finalTableDataArray;
-    download_csv(csv.join("\n"), filename);
-   
-}
-function download_csv(csv, filename) {
-    var csvFile;
-    var downloadLink;
-    csvFile = new Blob([csv], {type: "text/csv"});
-    downloadLink = document.createElement("a");
-    downloadLink.download = filename;
-    downloadLink.href = window.URL.createObjectURL(csvFile);
-    downloadLink.style.display = "none";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-
-
-   
-    
- 
-}
-
-function getCSV(){
-
-    var columnNamesArray = [];
-
-    $('#cpn_name').val('')
-
-    document.getElementById("Submit").setAttribute("hidden","true");
-	var fileUpload =  document.getElementById("fileUpload");
-   
-	var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-	
-        if (typeof (FileReader) != "undefined") {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var table = document.createElement("table");
-                $('#selectAgentContainer').show();
-  
-                table.setAttribute("id","newTable");
-                table.setAttribute("class","table table-hover");
-                
-                var rows = e.target.result.split("\n");
-
-                console.log('original cols '+rows.length);
+        var ch1;
+        var ch2;
+        var ch3;
+        var ch4;
+        var ch5;
+        var ch6;
 
 
 
+        $('#selectAgentContainer').hide();
 
-                if(rows[rows.length-1].length ==0){
-                    rows.splice(rows.length-1,1)
+        function exportTableToCSV() {
+            var mSelectedAgent = $("#agentDropdown").children("option:selected").val();
+            var finalTableDataArray = [];
+            var filename = "label_" + document.getElementById("fileUpload").files[0].name;
+            var csv = [];
+            var rows = document.querySelectorAll("table tr");
+
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = [];
+                var cols = rows[i].querySelectorAll("td, th");
+
+                for (var j = 0; j < cols.length; j++) {
+
+                    if (i > 0) {
+                        if (j == 12 || j == 15) {
+
+                            // var d = "topic" + i + "c" + j;
+
+                            // var e = document.getElementById(d);
+
+                            // var strVlaue = '';
+                            // if (e.innerText.trim() == 'Dropdown') {
+                            //     strVlaue = '';
+                            // } else {
+                            //     strVlaue = e.innerText;
+                            // }
+
+                            // row.push(strVlaue.trim());
+
+
+                            var dp = "topic" + i + "c" + j;
+
+                            var ep = document.getElementById(dp);
+                            var strVlaue = ep.options[ep.selectedIndex].text;
+                            row.push(strVlaue.trim());
+
+                        }
+                        else if (j == 5 || j == 8) {
+                            var dp = "promise" + i + "c" + j;
+
+                            var ep = document.getElementById(dp);
+                            var strVlaue = ep.options[ep.selectedIndex].text;
+                            row.push(strVlaue.trim());
+                        }
+                        else {
+                            row.push(cols[j].textContent.trim());
+                        }
+                    }
+                    else { row.push(cols[j].textContent.trim()); }
+
+
                 }
 
-                var firstRowText = 'fnum,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,cpn_name,agent';
+                var row2 = [...row]
+
+                var start = row2.length -9;
+                var end = row2.length -2;
+             
+
+                row2.splice(start, end);
+               
+
+                finalTableDataArray.push(row2.join(""));
+
+                if (initialTableDataArray[i] != finalTableDataArray[i]) {
+
+                    console.log("row edited is: " + i);
+                    if(i ==1){
+
+                    }
+                    rows[i].lastChild.firstChild.textContent = mSelectedAgent;
+                    row[cols.length - 1] = mSelectedAgent;
+                }
+
+                var finalRow = row.join(",");
+                csv.push(finalRow);
+            }
+
+
+            console.log('Initial array: ' + initialTableDataArray[1]);
+            console.log('Final  array: ' + finalTableDataArray[1]);
+
+
+            initialTableDataArray = finalTableDataArray;
+            download_csv(csv.join("\n"), filename);
+
+        }
+        function download_csv(csv, filename) {
+            var csvFile;
+            var downloadLink;
+            csvFile = new Blob([csv], { type: "text/csv" });
+            downloadLink = document.createElement("a");
+            downloadLink.download = filename;
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+
+
+
+
+
+        }
+
+        function getCSV() {
+
+            var columnNamesArray = [];
+
+            $('#cpn_name').val('')
+            $('#ch1').val('')
+            $('#ch2').val('')
+            $('#ch3').val('')
+            $('#ch4').val('')
+            $('#ch5').val('')
+            $('#ch6').val('')
+
+            // document.getElementById("Submit").setAttribute("hidden", "true");
+            var fileUpload = document.getElementById("fileUpload");
+
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var table = document.createElement("table");
+                    $('#selectAgentContainer').show();
+
+                    table.setAttribute("id", "newTable");
+                    table.setAttribute("class", "table table-hover");
+
+                    var rows = e.target.result.split("\n");
+
+                    console.log('original cols ' + rows.length);
+
+
+
+
+                    if (rows[rows.length - 1].length == 0) {
+                        rows.splice(rows.length - 1, 1)
+                    }
+
+                    var firstRowText = 'fnum,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,ch1,ch2,ch3,ch4,ch5,ch6,cpn_name,agent';
                     rows[0] = firstRowText;
 
-                
-                var textBox=document.createElement('input');
-                textBox.type = "text";
+
+                    var textBox = document.createElement('input');
+                    textBox.type = "text";
 
 
-        
-                for (var i = 0; i < rows.length; i++) {
-                    var cells = rows[i].split(",");
 
-                   if(i != 0 && cells.length <= 21){
-                     
-                    rows[i] = rows[i]+',,,,,,,,,,';
-                    cells = rows[i].split(",");
+                    for (var i = 0; i < rows.length; i++) {
+                        var cells = rows[i].split(",");
 
-                    console.log('new cols '+cells.length)
-                   }
+                        if (i != 0 && cells.length <= 27) {
 
-   
-                    if (cells.length > 1) {
+                            rows[i] = rows[i] + ',,,,,,,,,,,,,,,,';
+                            cells = rows[i].split(",");
 
-                        var row = table.insertRow(-1);
-
-                            
-
-                        if(i ==0){
-                            row.setAttribute("id","tableHead");
-                         
+                            console.log('new cols ' + cells.length)
                         }
 
 
-                      var rowValue = [];
+                        if (cells.length > 1) {
 
-                        for (var j = 0; j < cells.length; j++) {
+                            var row = table.insertRow(-1);
 
 
-                        
-                            var cell = row.insertCell(-1);
-                            var id= "topic"+i+"c"+j;
-                            var promiseid = "promise"+i+"c"+j;
 
-                            cell.innerHTML = cells[j];
+                            if (i == 0) {
+                                row.setAttribute("id", "tableHead");
 
-                            
-                            
-                            if (i ==0){
-
-                                
-                                cell.innerHTML = "<b>" + cells[j] + "</b>";
-                                var column = {}
-                                column.name = cells[j];
-                                column.id = j;
-                                columnNamesArray.push(column);
-
-                                
                             }
 
-                            cell.setAttribute("class", "col"+j);
+
+                            var rowValue = [];
+
+                            for (var j = 0; j < cells.length; j++) {
 
 
-                             if(i >0 && cells[j] ==""){
-                              
-                            if(j== 12 || j==15 )
-                           
-                            {
-                                cell.innerHTML = " <div class='dropdown dropdown-inline'><a href='#' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' data-hover='dropdown' id='"+id+"'>Dropdown <span class='caret'></span></a><ul class='dropdown-menu' role='menu'><li class='dropdown'><a href='#' class='dropdown_opener'>Internet<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='Account_setup'><a href='#'>Account_setup</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_all'><a href='#'>i_Can_t_connect_all</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_device'><a href='#'>i_Can_t_connect_device</a></li><li class='dropdown_clickable' data-value='i_Customer_Equipment'><a href='#'>i_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='i_Email'><a href='#'>i_Email</a></li><li class='dropdown_clickable' data-value='i_Mobile_TV_apps'><a href='#'>i_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='i_Slow_connection'><a href='#'>i_Slow_connection</a></li><li class='dropdown_clickable' data-value='i_Wi_Fi'><a href='#'>i_Wi_Fi</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>Phone<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_Services_out'><a href='#'>All_Services_out</a></li><li class='dropdown_clickable' data-value='p_Calling_features'><a href='#'>p_Calling_features</a></li><li class='dropdown_clickable' data-value='p_Can_t_be_called'><a href='#'>p_Can_t_be_called</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_long_distance'><a href='#'>p_Can_t_call_long_distance</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_out'><a href='#'>p_Can_t_call_out</a></li><li class='dropdown_clickable' data-value='p_CPE_Jacks'><a href='#'>p_CPE_Jacks</a></li><li class='dropdown_clickable' data-value='p_Miscellaneous'><a href='#'>p_Miscellaneous</a></li><li class='dropdown_clickable' data-value='p_No_Dial_Tone'><a href='#'>p_No_Dial_Tone</a></li><li class='dropdown_clickable' data-value='p_Noise_Static'><a href='#'>p_Noise_Static</a></li><li class='dropdown_clickable' data-value='p_ONT_battery'><a href='#'>p_ONT_battery</a></li><li class='dropdown_clickable' data-value='p_Order_billing'><a href='#'>p_Order_billing</a></li><li class='dropdown_clickable' data-value='p_Physical_Outside'><a href='#'>p_Physical_Outside</a></li><li class='dropdown_clickable' data-value='p_Self_install'><a href='#'>p_Self_install</a></li><li class='dropdown_clickable' data-value='p_Voicemail'><a href='#'>p_Voicemail</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>TV<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_channels_out'><a href='#'>All_channels_out</a></li><li class='dropdown_clickable' data-value='t_Audio_problems'><a href='#'>t_Audio_problems</a></li><li class='dropdown_clickable' data-value='t_Cable_card'><a href='#'>t_Cable_card</a></li><li class='dropdown_clickable' data-value='t_Caller_ID_on_TV'><a href='#'>t_Caller_ID_on_TV</a></li><li class='dropdown_clickable' data-value='t_Customer_Equipment'><a href='#'>t_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='t_DVR_functionality'><a href='#'>t_DVR_functionality</a></li><li class='dropdown_clickable' data-value='t_Interactive_Media_Guide'><a href='#'>t_Interactive_Media_Guide</a></li><li class='dropdown_clickable' data-value='t_Mobile_TV_apps'><a href='#'>t_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='t_On_Demand'><a href='#'>t_On_Demand</a></li><li class='dropdown_clickable' data-value='t_Pay_per_view'><a href='#'>t_Pay_per_view</a></li><li class='dropdown_clickable' data-value='t_Remote_controls'><a href='#'>t_Remote_controls</a></li><li class='dropdown_clickable' data-value='t_Set_top_box_problems'><a href='#'>t_Set_top_box_problems</a></li><li class='dropdown_clickable' data-value='t_Some_Channels_Out'><a href='#'>t_Some_Channels_Out</a></li><li class='dropdown_clickable' data-value='t_STB_activation'><a href='#'>t_STB_activation</a></li><li class='dropdown_clickable' data-value='t_TV_content_questions'><a href='#'>t_TV_content_questions</a></li></ul></li><li class='divider'></li><li class='dropdown_clickable' data-value='Other'><a href='#'>Other</a></li></ul></div>"
+
+                                var cell = row.insertCell(-1);
+                                var id = "topic" + i + "c" + j;
+                                var promiseid = "promise" + i + "c" + j;
+
+                                cell.innerHTML = cells[j];
+
+
+
+                                if (i == 0) {
+
+
+                                    cell.innerHTML = "<b>" + cells[j] + "</b>";
+                                    var column = {}
+                                    column.name = cells[j];
+                                    column.id = j;
+                                    columnNamesArray.push(column);
+
+
+                                }
+
+                                cell.setAttribute("class", "col" + j);
+
+
+                                if (i > 0 && cells[j] == "") {
+
+                                    if (j == 12 || j == 15) {
+
+                                        cell.innerHTML = "<div contenteditable><select id=" + id + "><option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>";
+                                    }
+                                    else if (j == 5 || j == 8) {
+                                        cell.innerHTML = "<div contenteditable><select id=" + promiseid + "><option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
+                                    } else if (j == 3) {
+                                        cell.innerHTML = "<div contenteditable style='width:400px;'></div>";
+                                    }
+
+                                    else {
+
+                                        cell.innerHTML = "<div contenteditable></div>";
+                                    }
+
+
+                                }
+                                else if (i > 0 && cells[j] != "") {
+
+                                    if (j == 12 || j == 15) {
+                                        cell.innerHTML = "<div contenteditable><select id=" + id + ">" + cells[j] + "<option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
+                                    }
+                                    else if (j == 5 || j == 8) {
+                                        cell.innerHTML = "<div contenteditable><select id=" + promiseid + "><option>" + cells[j] + "</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
+                                    } else if (j == 3) {
+                                        cell.innerHTML = "<div contenteditable style='width:400px;'>" + cells[j] + "</div>";
+
+                                    } else if (j == 3) {
+
+                                        cell.innerHTML = "<div contenteditable>" + cells[j] + "</div>";
+                                        // row.setAttribute("class",cells[j].toLowerCase());
+                                    }
+                                    else if (j == 20) {
+                                        $('#ch1').val(cells[j]);
+
+                                    } else if (j == 21) {
+                                        $('#ch2').val(cells[j]);
+
+                                    } else if (j == 22) {
+                                        $('#ch3').val(cells[j]);
+
+                                    } else if (j == 23) {
+                                        $('#ch4').val(cells[j]);
+
+                                    } else if (j == 24) {
+                                        $('#ch5').val(cells[j]);
+
+                                    } else if (j == 25) {
+                                        $('#ch6').val(cells[j]);
+
+                                    } else if (j == 26) {
+                                        $('#cpn_name').val(cells[j]);
+
+
+                                    }
+                                    else {
+
+
+                                        cell.innerHTML = "<div contenteditable>" + cells[j] + "</div>";
+                                    }
+
+                                }
+                                rowValue.push(cells[j].trim());
                             }
-                           else  if(j== 5 || j==8)
-                           
-                           {
-                               cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
-                           }else if(j==3){
-                            cell.innerHTML = "<div contenteditable style='width:400px;'></div>";
-                           }
 
-                            else{
-                                
-                                cell.innerHTML = "<div contenteditable></div>";
-                            }
-                           
-                            
-                            }
-                            else if (i >0 && cells[j] !=""){
-                                   
-                                if(j== 12 || j==15 )
-                           
-                           {
-                               cell.innerHTML = "<div class='dropdown dropdown-inline'><a href='#' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' data-hover='dropdown' id='"+id+"'>"+cells[j]+" <span class='caret'></span></a><ul class='dropdown-menu' role='menu'><li class='dropdown'><a href='#' class='dropdown_opener'>Internet<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='Account_setup'><a href='#'>Account_setup</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_all'><a href='#'>i_Can_t_connect_all</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_device'><a href='#'>i_Can_t_connect_device</a></li><li class='dropdown_clickable' data-value='i_Customer_Equipment'><a href='#'>i_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='i_Email'><a href='#'>i_Email</a></li><li class='dropdown_clickable' data-value='i_Mobile_TV_apps'><a href='#'>i_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='i_Slow_connection'><a href='#'>i_Slow_connection</a></li><li class='dropdown_clickable' data-value='i_Wi_Fi'><a href='#'>i_Wi_Fi</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>Phone<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_Services_out'><a href='#'>All_Services_out</a></li><li class='dropdown_clickable' data-value='p_Calling_features'><a href='#'>p_Calling_features</a></li><li class='dropdown_clickable' data-value='p_Can_t_be_called'><a href='#'>p_Can_t_be_called</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_long_distance'><a href='#'>p_Can_t_call_long_distance</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_out'><a href='#'>p_Can_t_call_out</a></li><li class='dropdown_clickable' data-value='p_CPE_Jacks'><a href='#'>p_CPE_Jacks</a></li><li class='dropdown_clickable' data-value='p_Miscellaneous'><a href='#'>p_Miscellaneous</a></li><li class='dropdown_clickable' data-value='p_No_Dial_Tone'><a href='#'>p_No_Dial_Tone</a></li><li class='dropdown_clickable' data-value='p_Noise_Static'><a href='#'>p_Noise_Static</a></li><li class='dropdown_clickable' data-value='p_ONT_battery'><a href='#'>p_ONT_battery</a></li><li class='dropdown_clickable' data-value='p_Order_billing'><a href='#'>p_Order_billing</a></li><li class='dropdown_clickable' data-value='p_Physical_Outside'><a href='#'>p_Physical_Outside</a></li><li class='dropdown_clickable' data-value='p_Self_install'><a href='#'>p_Self_install</a></li><li class='dropdown_clickable' data-value='p_Voicemail'><a href='#'>p_Voicemail</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>TV<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_channels_out'><a href='#'>All_channels_out</a></li><li class='dropdown_clickable' data-value='t_Audio_problems'><a href='#'>t_Audio_problems</a></li><li class='dropdown_clickable' data-value='t_Cable_card'><a href='#'>t_Cable_card</a></li><li class='dropdown_clickable' data-value='t_Caller_ID_on_TV'><a href='#'>t_Caller_ID_on_TV</a></li><li class='dropdown_clickable' data-value='t_Customer_Equipment'><a href='#'>t_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='t_DVR_functionality'><a href='#'>t_DVR_functionality</a></li><li class='dropdown_clickable' data-value='t_Interactive_Media_Guide'><a href='#'>t_Interactive_Media_Guide</a></li><li class='dropdown_clickable' data-value='t_Mobile_TV_apps'><a href='#'>t_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='t_On_Demand'><a href='#'>t_On_Demand</a></li><li class='dropdown_clickable' data-value='t_Pay_per_view'><a href='#'>t_Pay_per_view</a></li><li class='dropdown_clickable' data-value='t_Remote_controls'><a href='#'>t_Remote_controls</a></li><li class='dropdown_clickable' data-value='t_Set_top_box_problems'><a href='#'>t_Set_top_box_problems</a></li><li class='dropdown_clickable' data-value='t_Some_Channels_Out'><a href='#'>t_Some_Channels_Out</a></li><li class='dropdown_clickable' data-value='t_STB_activation'><a href='#'>t_STB_activation</a></li><li class='dropdown_clickable' data-value='t_TV_content_questions'><a href='#'>t_TV_content_questions</a></li></ul></li><li class='divider'></li><li class='dropdown_clickable' data-value='Other'><a href='#'>Other</a></li></ul></div>"
-                           }
-                          else  if(j== 5 || j==8)
-                          
-                          {
-                              cell.innerHTML = "<div contenteditable><select id="+promiseid+"><option>"+cells[j]+"</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
-                          }else if(j==3){
-                            cell.innerHTML = "<div contenteditable style='width:400px;'>"+cells[j]+"</div>";
-
-                           }else if(j==3){
-
-                            cell.innerHTML = "<div contenteditable>"+cells[j]+"</div>";
-                            // row.setAttribute("class",cells[j].toLowerCase());
-                           }else if(j==22){
-                               $('#cpn_name').val(cells[j]);
-                            console.log(cells[j]);
-
-                           }
-                          else{
-
-                              
-                            cell.innerHTML = "<div contenteditable>"+cells[j]+"</div>";
-                          }
-                          
-                            }
-                            rowValue.push(cells[j].trim());
+                            var rowValue2 = [...rowValue];
+                            rowValue2.pop();
+                            initialTableDataArray.push(rowValue2.join(""));
                         }
 
-                        var rowValue2 = [...rowValue];
-                        rowValue2.pop();
-                        initialTableDataArray.push(rowValue2.join(""));
+
                     }
-
-                  
-                }
-                var dvCSV = document.getElementById("csv");
-                dvCSV.innerHTML = "";
-                dvCSV.appendChild(table);
+                    var dvCSV = document.getElementById("csv");
+                    dvCSV.innerHTML = "";
+                    dvCSV.appendChild(table);
 
 
-                var finalColumnsarr=   columnNamesArray.filter(function (el) {
+                    var finalColumnsarr = columnNamesArray.filter(function (el) {
                         return el.name != '';
-                        });
+                    });
 
-                        $('#bottomNav').css("display", "block");
+                    $('#bottomNav').css("display", "block");
 
-                $('#bottomNavContent').html('');
-                finalColumnsarr.forEach(element => {
-                    if(element.name === 'cpn_name' ){
+                    $('#bottomNavContent').html('');
+                    finalColumnsarr.forEach(element => {
+                        if (element.name === 'cpn_name') {
 
-                        
-                     //  $('.col'+element.id).hide();
-                        console.log(element)
-                        cpn_name = element;
 
-                    }else{
+                            //  $('.col'+element.id).hide();
+                            
+                            cpn_name = element;
 
-                    $('#bottomNavContent').append(`<li style="color:white; margin-right:8px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" checked> ${element.name}</li>`);
+                        } else if (element.name === 'ch1') {
+                            //  $('.col'+element.id).hide();
+                            ch1 = element;
 
-                    }
-            
+                        } else if (element.name === 'ch2') {
+                            //  $('.col'+element.id).hide();
+                            ch2 = element;
+
+                        } else if (element.name === 'ch3') {
+                            //  $('.col'+element.id).hide();
+                            ch3 = element;
+
+                        } else if (element.name === 'ch4') {
+                            //  $('.col'+element.id).hide();
+                            ch4 = element;
+
+                        } else if (element.name === 'ch5') {
+                            //  $('.col'+element.id).hide();
+                            ch5 = element;
+
+                        } else if (element.name === 'ch6') {
+                            //  $('.col'+element.id).hide();
+                            ch6 = element;
+
+                        } else {
+
+                            $('#bottomNavContent').append(`<li style="color:white; margin-right:8px; margin-top:5px; padding:5px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" checked> ${element.name}</li>`);
+
+                        }
+
+                    });
+
+
+                    $('.toggle-columns').change(function () {
+                        var value = this.value;
+                        if (this.checked) {
+                            $('.col' + value).show();
+                        } else {
+                            $('.col' + value).hide();
+                        }
+                    });
+                }
+                reader.readAsText(fileUpload.files[0]);
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+
+
+
+        }
+
+
+        $('body').on('click', '.dropdown_clickable', function (event) {
+
+            event.preventDefault();
+            var value = $(this).attr('data-value');
+            if (value != 'Other') {
+                var dropdownElement = $(this).closest('ul').closest('li').closest('ul').prev('a')
+                dropdownElement.html(value);
+                $('.dropdown').removeClass('open');
+
+            } else {
+                var dropdownElement = $(this).closest('ul').prev('a')
+                dropdownElement.html(value);
+                dropdownElement.parent('div').find('.dropdown').removeClass('open');
+            }
+
+
+
+        });
+
+
+        $('body').on('click', '.dropdown', function (event) {
+
+            // event.preventDefault();
+            // event.stopPropagation();
+
+            console.log('custom dropdown')
+
+
+            // var targetElement = $(this);
+
+            // targetElement.parent('ul').find('.dropdown').removeClass("open");
+
+            // if (!targetElement.hasClass('open')) {
+            //     targetElement.addClass('open');
+            // } else {
+            //     targetElement.removeClass('open');
+            // }
+
+            $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $(this).siblings().toggleClass("show");
+
+
+                if (!$(this).next().hasClass('show')) {
+                    $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+                }
+                $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+                    $('.dropdown-submenu .show').removeClass("show");
                 });
 
-        
-                    $('.toggle-columns').change(function() {
-                        var value = this.value;
-                        if(this.checked) {
-                            $('.col'+value).show();
-                        }else{
-                            $('.col'+value).hide();
-                    }       
-                });            
-            }
-            reader.readAsText(fileUpload.files[0]);
-        } else {
-            alert("This browser does not support HTML5.");
-        }
-  
+            });
+
+        });
 
 
-}
+        $('#cpn_name').on('input', function () {
+            var value = $(this).val();
+            $('.col' + cpn_name.id).eq(1).html(value);
+        });
 
 
-$('body').on('click', '.dropdown_clickable', function(event) {
-  event.preventDefault();
-    var value = $(this).attr('data-value');
-    if(value != 'Other'){
-        var dropdownElement = $(this).closest('ul').closest('li').closest('ul').prev('a')
-        dropdownElement.html(value);
-        $('.dropdown').removeClass('open');
 
-    }else{
-        var dropdownElement = $(this).closest('ul').prev('a')
-        dropdownElement.html(value);
-        dropdownElement.parent('div').find('.dropdown').removeClass('open');
-    }
+        $('#ch1').on('input', function () {
+            var value = $(this).val();
+            $('.col' + ch1.id).eq(1).html(value);
+        });
+
+        $('#ch2').on('input', function () {
+            var value = $(this).val();
+            $('.col' + ch2.id).eq(1).html(value);
+        });
 
 
-  
-});
+        $('#ch3').on('input', function () {
+            var value = $(this).val();
+            $('.col' + ch3.id).eq(1).html(value);
+        });
 
 
-$('body').on('click', '.dropdown', function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    var targetElement = $(this);
-    
-    targetElement.parent('ul').find('.dropdown').removeClass("open");
+        $('#ch4').on('input', function () {
+            var value = $(this).val();
+            $('.col' + ch4.id).eq(1).html(value);
+        });
 
-    if(!targetElement.hasClass('open')){
-        targetElement.addClass('open');
-    }else{
-        targetElement.removeClass('open');  
-    }
-    
-    });
+        $('#ch5').on('input', function () {
+            var value = $(this).val();
+            $('.col' + ch5.id).eq(1).html(value);
+        });
+
+        $('#ch6').on('input', function () {
+            var value = $(this).val();
+            $('.col' + ch6.id).eq(1).html(value);
+        });
 
 
-    $('#cpn_name').on('input', function() {
-        var value = $(this).val();
-        $('.col'+cpn_name.id).eq(1).html(value);
-    });
-</script>
+    </script>
 
 </body>
+
 </html>
