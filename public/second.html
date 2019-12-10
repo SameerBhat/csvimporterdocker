@@ -651,35 +651,11 @@
                     finalColumnsarr.forEach(element => {
                         if (element.name === 'cpn_name') {
 
-
-                            //  $('.col'+element.id).hide();
+                             $('.col'+element.id).hide();
                             
                             cpn_name = element;
 
-                        } else if (element.name === 'ch1') {
-                            //  $('.col'+element.id).hide();
-                            ch1 = element;
-
-                        } else if (element.name === 'ch2') {
-                            //  $('.col'+element.id).hide();
-                            ch2 = element;
-
-                        } else if (element.name === 'ch3') {
-                            //  $('.col'+element.id).hide();
-                            ch3 = element;
-
-                        } else if (element.name === 'ch4') {
-                            //  $('.col'+element.id).hide();
-                            ch4 = element;
-
-                        } else if (element.name === 'ch5') {
-                            //  $('.col'+element.id).hide();
-                            ch5 = element;
-
-                        } else if (element.name === 'ch6') {
-                            //  $('.col'+element.id).hide();
-                            ch6 = element;
-
+                        
                         } else {
 
                             $('#bottomNavContent').append(`<li style="color:white; margin-right:8px; margin-top:5px; padding:5px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" checked> ${element.name}</li>`);
