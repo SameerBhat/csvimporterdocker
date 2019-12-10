@@ -572,9 +572,7 @@
                 if (initialTableDataArray[i] != finalTableDataArray[i]) {
 
                     console.log("row edited is: " + i);
-                    if(i ==1){
-
-                    }
+                   
                     rows[i].lastChild.firstChild.textContent = mSelectedAgent;
                     row[cols.length - 1] = mSelectedAgent;
                 }
@@ -729,8 +727,10 @@
                                 }
                                 else if (i > 0 && cells[j] != "") {
 
+                                    
                                     if (j == 12 || j == 15) {
-                                        cell.innerHTML = "<div contenteditable><select id=" + id + ">" + cells[j] + "<option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
+                                        console.log(cells[j])
+                                        cell.innerHTML = "<div contenteditable><select id=" + id + "><option selected>" + cells[j] + "</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
                                     }
                                     else if (j == 5 || j == 8) {
                                         cell.innerHTML = "<div contenteditable><select id=" + promiseid + "><option>" + cells[j] + "</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option></select></div>"
