@@ -2,10 +2,11 @@
 <html>
 
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="ISO-8859-1"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
     <title>ANN</title>
 </head>
 <style>
@@ -85,7 +86,7 @@
 
     #tableHead td {
         position: sticky;
-        top: 50px;
+        top: 120px;
         background: steelblue;
         color: white;
     }
@@ -191,7 +192,7 @@
 
     .navbar .container {
         padding: 15px;
-        border-bottom: 1px solid #d8dada;
+      
     }
 
     .title-name {
@@ -203,7 +204,7 @@
         display: flex;
         height: 84px;
         border-bottom: 1px solid #d8dada;
-        margin-top: 82px;
+        margin-top: 121px;
     }
 
     .text-center {
@@ -217,10 +218,78 @@
     padding: 12px;
 }
 
+.circular-button-fab{
+    border-radius: 30px;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 45px;
+    padding: 16px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 70px;
+ 
+}
+
+.circular-button-fab:hover{
+    background-color: #d43f3a;
+    cursor:pointer;
+    
+}
+.navbar-default {
+    background-color: #fff ;
+    border-bottom: 1px solid #d8dada;
+   
+
+   
+}
+.nav-bar-secondary{
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: white;
+    text-align: center;
+}
+
+.nav-bar-secondary .row{
+    padding: 10px;
+
+}
+.nav-links, .nav-links:hover{
+    text-decoration: underline;
+    color: white;
+}
+
 </style>
 
 <body>
+
+    <div class="circular-button-fab show-after-upload" id="Save" 
+    onclick="exportTableToCSV();">
+            <i class="fa fa-download"></i>
+    </div>
     <nav class="navbar navbar-default navbar-fixed-top">
+
+        
+        <div class="nav-bar-secondary">
+                <div class="row">
+                        <div class="col-sm-6">
+                                <span> <a href="/nap/readme.html" target="_blank" class="nav-links">Click here</a> to find notes on
+                                    promises </span>                
+            
+                        </div>
+            
+                        <div class="col-sm-6">
+                                <span> <a href="/nap/secondfile.html" target="_blank" class="nav-links">Click here</a> to find second
+                                    note </span>
+                        </div>
+                    </div>
+        </div>
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/"></a>
@@ -234,10 +303,7 @@
             <h1 style="padding: 8px;">Agent's Notes Labeling Tool</h1>
         </div>
 
-        <div class="text-center"> <span> <a href="/nap/readme.html" target="_blank">Click here</a> to find notes on
-                promises </span></div>
-        <div class="text-center"> <span> <a href="/nap/secondfile.html" target="_blank">Click here</a> to find second
-                note </span></div>
+        
     </div>
 
     <div class="container-fluid" style="margin: 12px;" > 
@@ -256,7 +322,7 @@
 
 
 
-                <div id="selectAgentContainer">
+                <div id="selectAgentContainer" class="show-after-upload">
                 <div class="row" style="margin-top: 20px; ">
 
                     <div class="col-sm-6">
@@ -286,10 +352,7 @@
 
                 
 
-                <div class="row" style="margin: 2px;">
-                        <button type="button" class="btn btn-block btn-danger" id="Save" 
-                        onclick="exportTableToCSV();"><b>SAVE</b></button>
-                </div>
+               
 
             </div>
 
@@ -326,7 +389,7 @@
         var selectedAgent = '';
         var cpn_name;
 
-        $('#selectAgentContainer').hide();
+        $('.show-after-upload').hide();
 
         function exportTableToCSV() {
             var mSelectedAgent = $("#agentDropdown").children("option:selected").val();
@@ -432,7 +495,7 @@
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     var table = document.createElement("table");
-                    $('#selectAgentContainer').show();
+                    $('.show-after-upload').show();
 
                     table.setAttribute("id", "newTable");
                     table.setAttribute("class", "table table-hover");
