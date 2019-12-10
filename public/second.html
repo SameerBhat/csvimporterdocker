@@ -298,8 +298,8 @@
            
             <div class="col">
                 <div class="form-group">
-                    <label for="who_is_customer_dropdown_2">Who is Customer?</label>
-                    <select id="who_is_customer_dropdown_2" class="custom-select">
+                    <label for="customerDropdown">Who is Customer?</label>
+                    <select id="customerDropdown" class="custom-select">
 
                         <option value="ch1">Ch1</option>
                         <option value="ch2">Ch2</option>
@@ -384,6 +384,8 @@
 
         function exportTableToCSV() {
             var mSelectedAgent = $("#agentDropdown").children("option:selected").val();
+            var mSelectedCustomer = $("#customerDropdown").children("option:selected").val();
+
             var finalTableDataArray = [];
             var filename = "label_" + document.getElementById("fileUpload").files[0].name;
             var csv = [];
@@ -438,9 +440,9 @@
 
                 var row2 = [...row]
 
-                var start = row2.length - 2;
+                var start = row2.length - 3;
 
-                row2.splice(start, 2);
+                row2.splice(start, 3);
                
 
                 finalTableDataArray.push(row2.join(""));
@@ -448,8 +450,13 @@
                 if(i != 0){
     if (initialTableDataArray[i] != finalTableDataArray[i]) {
                     console.log("row edited is: " + i);
-                    rows[i].lastChild.firstChild.textContent = mSelectedAgent;
-                    row[cols.length - 1] = mSelectedAgent;
+                    rows[i].lastChild.firstChild.textContent = mSelectedCustomer;
+                    row[cols.length - 1] = mSelectedCustomer;
+
+
+rows[i].lastChild.previousSibling.firstChild.textContent = mSelectedAgent;
+                    row[cols.length - 2] = mSelectedAgent;
+
                 }
 }
    
@@ -516,7 +523,7 @@
                         rows.splice(rows.length - 1, 1)
                     }
 
-                    var firstRowText = 'fnum,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,cpn_name,agent';
+                    var firstRowText = 'fnum,time,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,cpn_name,agent,customer';
                     rows[0] = firstRowText;
 
 
@@ -528,9 +535,9 @@
                     for (var i = 0; i < rows.length; i++) {
                         var cells = rows[i].split(",");
 
-                        if (i != 0 && cells.length <= 21) {
+                        if (i != 0 && cells.length <= 22) {
 
-                            rows[i] = rows[i] + ',,,,,,,,,,';
+                            rows[i] = rows[i] + ',,,,,,,,,,,';
                             cells = rows[i].split(",");
 
                             console.log('new cols ' + cells.length)
