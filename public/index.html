@@ -375,11 +375,10 @@
 
                 var row2 = [...row]
 
-                var start = row2.length - 3;
-                var end = row2.length - 2;
+                var start = row2.length - 2;
 
 
-                row2.splice(start, end);
+                row2.splice(start, 1);
                 finalTableDataArray.push(row2.join(""));
 
                 if (initialTableDataArray[i] != finalTableDataArray[i]) {
