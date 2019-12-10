@@ -446,22 +446,31 @@ tr#tableHead td {
                 var start = row2.length - 2;
 
 
-                row2.splice(start, 1);
+                row2.splice(start, 2);
                 finalTableDataArray.push(row2.join(""));
 
-                if (initialTableDataArray[i] != finalTableDataArray[i]) {
+if(i != 0){
+    if (initialTableDataArray[i] != finalTableDataArray[i]) {
                     console.log("row edited is: " + i);
                     rows[i].lastChild.firstChild.textContent = mSelectedAgent;
                     row[cols.length - 1] = mSelectedAgent;
                 }
+}
+               
 
                 var finalRow = row.join(",");
                 csv.push(finalRow);
             }
 
+            console.log('Initial array 1: ' + initialTableDataArray[1]);
+            console.log('Final  array 1: ' + finalTableDataArray[1]);
 
-            console.log('Initial array: ' + initialTableDataArray[1]);
-            console.log('Final  array: ' + finalTableDataArray[1]);
+            console.log('Initial array 2: ' + initialTableDataArray[2]);
+            console.log('Final  array 2: ' + finalTableDataArray[2]);
+
+
+            console.log('Initial array 3: ' + initialTableDataArray[3]);
+            console.log('Final  array 3: ' + finalTableDataArray[3]);
 
 
             initialTableDataArray = finalTableDataArray;
