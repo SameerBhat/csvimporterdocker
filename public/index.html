@@ -684,15 +684,25 @@ rows[i].lastChild.previousSibling.firstChild.textContent = mSelectedAgent;
                     $('#bottomNav').css("display", "block");
 
                     $('#bottomNavContent').html('');
+
+                    var checked = 'checked';
                     finalColumnsarr.forEach(element => {
                         if (element.name === 'cpn_name') {
                             $('.col' + element.id).hide();
                             //console.log(element)
                             cpn_name = element;
 
-                        } else {
-                            $('#bottomNavContent').append(`<li style="color:white; margin-right:8px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" checked> ${element.name}</li>`);
+                        } else  {
 
+                            if(element.name === 'promise_comment'){
+                                checked = '';
+                            }
+
+                            $('#bottomNavContent').append(`<li style="color:white; margin-right:8px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" ${checked}> ${element.name}</li>`);
+
+                            if(checked === ''){
+                                $('.col' + element.id).hide();
+                            }
                         }
 
                     });
