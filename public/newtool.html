@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>ANN</title>
+</head>
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+        length: 50%;
+    }
+
+    div#csv {
+        margin-bottom: 52px !important;
+    }
+
+    th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        background-color: "#5868c5";
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        color: #464C4C;
+    }
+
+    tr {
+        color: #464C4C;
+    }
+
+    p {
+        display: block;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    textarea {
+        width: 600px;
+        padding: 3px;
+        border: none;
+    }
+
+    h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 700;
+    }
+
+    button {
+        border-radius: 10px;
+        font: bold;
+        background-color: #d3d3d3;
+        color: #cf0000;
+    }
+
+    div {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+
+
+    .speaker1,
+    .table-hover>tbody>tr.speaker1:hover,
+    table>tbody>tr.speaker1>td {
+        background: #28a745;
+        color: #fff !important;
+    }
+
+    tr.speaker1>td>div>select {
+        color: #000 !important;
+    }
+
+
+
+    #tableHead td {
+        position: sticky;
+        top: 120px;
+        background: steelblue;
+        color: white;
+    }
+
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 4px 6px;
+    }
+
+
+    /* STYLES FOR MULTI LEVEL DROPDOWN */
+    .dropdown .dropdown-menu .caret {
+        border: 4px solid transparent;
+        border-left-color: #000;
+        float: right;
+        margin-top: 6px;
+    }
+
+    .dropdown-menu {
+        min-width: 250px;
+    }
+
+    .dropdown-menu>li.open>a {
+        background-color: #F5F5F5;
+        color: #262626;
+        text-decoration: none;
+    }
+
+    .dropdown-menu .dropdown-menu {
+        left: 100%;
+        margin: 0;
+        right: auto;
+        top: -1px;
+    }
+
+    .dropdown-menu-right .dropdown-menu,
+    .navbar-right .dropdown-menu .dropdown-menu,
+    .pull-right .dropdown-menu .dropdown-menu {
+        left: auto;
+        right: 100%;
+    }
+
+    .dropdown-menu.animated {
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+    }
+
+    .dropdown-menu.animated:before {
+        content: " ";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 99;
+    }
+
+    .dropdownhover-top {
+        margin-bottom: 2px;
+        margin-top: 0;
+    }
+
+    .navbar-fixed-bottom .dropdown-menu .dropdown-menu,
+    .dropdownhover-top .dropdown-menu {
+        bottom: -1px;
+        top: auto;
+    }
+
+    .navbar-nav>li>.dropdown-menu {
+        margin-bottom: 0;
+    }
+
+    .dropdownhover-bottom {
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+    }
+
+    .dropdownhover-left {
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+    }
+
+    .dropdownhover-right {
+        -webkit-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+    }
+
+    .dropdownhover-top {
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+    }
+
+
+    .navbar-brand {
+        background-image: url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNjU4LjIgMTQ2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2NTguMiAxNDY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj48Zz48cG9seWdvbiBmaWxsPSIjRDUyQjFFIiBwb2ludHM9IjY0My43LDAgNjA3LjgsNzYuOCA1OTQuMyw0Ny43IDU3OS43LDQ3LjcgNjAxLjksOTUuMyA2MTMuNyw5NS4zIDY1OC4yLDAgCSIvPjxwYXRoIGQ9Ik00ODkuNywxNDIuNmgyOC45Vjg5LjdjMC0xMi4xLDctMjAuNiwxNy40LTIwLjZjMTAsMCwxNS4yLDcsMTUuMiwxNy4xdjU2LjRoMjguOVY4MC43YzAtMjEtMTIuNi0zNS44LTMzLTM1LjggYy0xMywwLTIyLjEsNS42LTI4LjksMTUuOGgtMC42di0xM2gtMjhMNDg5LjcsMTQyLjZMNDg5LjcsMTQyLjZ6IE00MzIuOSw0NS4xYy0zMC4yLDAtNTAuNCwyMS43LTUwLjQsNTAuMyBjMCwyOC40LDIwLjIsNTAuMyw1MC40LDUwLjNzNTAuNC0yMS45LDUwLjQtNTAuM0M0ODMuNCw2Ni44LDQ2My4xLDQ1LjEsNDMyLjksNDUuMXogTTQzMi43LDEyNC4zYy0xMy43LDAtMjEtMTEuNS0yMS0yOC45CWMwLTE3LjYsNy4yLTI4LjksMjEtMjguOWMxMy43LDAsMjEuMywxMS4zLDIxLjMsMjguOUM0NTQuMSwxMTIuOCw0NDYuNSwxMjQuMyw0MzIuNywxMjQuM3ogTTMwMC4xLDE0Mi42aDgxLjJ2LTIyLjhoLTQ2di0wLjYJbDQ0LTQ5LjNWNDcuNmgtNzkuMnYyMi45aDQ0LjV2MC42bC00NC41LDQ5LjdMMzAwLjEsMTQyLjZMMzAwLjEsMTQyLjZ6IE0yNjMsMTQyLjZoMjkuMVY0Ny43SDI2M1YxNDIuNnogTTE5NS41LDE0Mi42aDI5Vjk5CWMwLTE5LjgsMTEuOS0yOC42LDMwLTI2LjFoMC42di0yNWMtMS41LTAuNi0zLjItMC43LTUuOS0wLjdjLTExLjMsMC0xOC45LDUuMi0yNS40LDE2LjNoLTAuNlY0Ny43aC0yNy43VjE0Mi42eiBNMTQyLjMsMTI0LjQJYy0xMi44LDAtMjAuNi04LjMtMjIuMS0yMS4xaDY4LjRjMC4yLTIwLjQtNS4yLTM2LjctMTYuNS00Ni45Yy04LTcuNC0xOC41LTExLjUtMzEuOS0xMS41Yy0yOC42LDAtNDguNCwyMS43LTQ4LjQsNTAuMQljMCwyOC42LDE4LjksNTAuNCw1MC4zLDUwLjRjMTEuOSwwLDIxLjMtMy4yLDI5LjEtOC41YzguMy01LjcsMTQuMy0xNC4xLDE1LjktMjIuNGgtMjcuOEMxNTYuNiwxMjAuNywxNTAuOCwxMjQuNCwxNDIuMywxMjQuNHogTTE0MC44LDY1LjZjMTAuMiwwLDE3LjIsNy42LDE4LjQsMTguN2gtMzguOEMxMjIuNyw3My4xLDEyOC44LDY1LjYsMTQwLjgsNjUuNnogTTM0LDE0Mi42aDMwLjRsMzMtOTQuOUg2OC4zbC0xOC41LDYxaC0wLjQJbC0xOC41LTYxSDFMMzQsMTQyLjZ6IE0yNjMsMTMuOWgyOS4xdjI1LjhIMjYzVjEzLjl6Ii8+PC9nPjwvc3ZnPg==');
+        height: 50px;
+        width: 200px;
+        display: block;
+        background-repeat: no-repeat;
+    }
+
+    .navbar .container {
+        padding: 15px;
+      
+    }
+
+    .title-name {
+        background: url("https://ss7.vzw.com/is/image/VerizonWireless/exp-super-mini-banner-holiday-d?&scl=1") no-repeat center;
+        background-size: cover;
+        max-width: 100%;
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        height: 84px;
+        border-bottom: 1px solid #d8dada;
+        margin-top: 121px;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    #selectAgentContainers{
+        margin-top: 20px;
+    }
+    .form-inline {
+    padding: 12px;
+}
+
+.circular-button-fab{
+    border-radius: 30px;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 45px;
+    padding: 16px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 70px;
+    z-index: 1003;
+ 
+}
+
+.circular-button-fab:hover{
+    background-color: #d43f3a;
+    cursor:pointer;
+    
+}
+.navbar-default {
+    background-color: #fff ;
+    border-bottom: 1px solid #d8dada;
+   
+
+   
+}
+.nav-bar-secondary{
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: white;
+    text-align: center;
+}
+
+.nav-bar-secondary .row{
+    padding: 10px;
+
+}
+.nav-links, .nav-links:hover{
+    text-decoration: underline;
+    color: white;
+}
+
+tr#tableHead td {
+    z-index: 1002;
+}
+
+.nav>li {
+    display: inline !important;
+}
+
+</style>
+
+<body>
+
+    <div class="circular-button-fab show-after-upload" id="Save" 
+    onclick="exportTableToCSV();">
+            <i class="fa fa-download"></i>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+
+        
+        <div class="nav-bar-secondary">
+                <div class="row">
+                        <div class="col-sm-6">
+                                <span> <a href="/nap/readme.html" target="_blank" class="nav-links">Click here</a> to find notes on
+                                    promises </span>                
+            
+                        </div>
+            
+                        <div class="col-sm-6">
+                                <span> <a href="/nap/secondfile.html" target="_blank" class="nav-links">Click here</a> to find second
+                                    note </span>
+                        </div>
+                    </div>
+        </div>
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/"></a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div>
+        <div class="title-name text-center">
+            <h1 style="padding: 8px;">Agent's Notes Labeling Tool 2.0</h1>
+        </div>
+
+        
+    </div>
+
+    <div class="container-fluid" style="margin: 12px;" > 
+
+            <div class="row" style="margin-top: 20px; margin-left: 2px;">
+                    <div class="col-sm-6 btn btn-default">
+                            <label>
+                                     <input type="file" id="fileUpload" hidden>
+                                </label>
+                    </div>
+        
+                    <div class="col-sm-1 btn btn-info" style="margin-left: 10px; line-height: 2;" id="Submit" onclick="getCSV();">
+                            Upload CSV
+                    </div>
+                </div>
+
+
+
+                <div id="selectAgentContainer" class="show-after-upload">
+                <div class="row" style="margin-top: 20px; ">
+
+                    <div class="col-sm-6">
+                            <div class="form-group" >
+                                    <label for="agentDropdown">Who is Agent?</label>
+                                    <select id="agentDropdown" class="form-control" multiple>
+                                        <option value="channel1" selected>Channel1</option>
+                                        <option value="channel2">Channel2</option>
+                                        <option value="channel3">Channel3</option>
+                                        <option value="channel4">Channel4</option>
+                                        <option value="channel5">Channel5</option>
+                                        <option value="channel6">Channel6</option>
+                                    </select>
+                                </div>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group" >
+                            <label for="customerDropdown">Who is Customer?</label>
+                            <select id="customerDropdown" class="form-control" multiple>
+                                <option value="channel1" selected>Channel1</option>
+                                        <option value="channel2">Channel2</option>
+                                        <option value="channel3">Channel3</option>
+                                        <option value="channel4">Channel4</option>
+                                        <option value="channel5">Channel5</option>
+                                        <option value="channel6">Channel6</option>
+                            </select>
+                        </div>
+
+                       
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+
+
+                        <div class="form-group">
+                                <label for="cpn_name">Calling Party Name</label>
+                                <input id="cpn_name" type="text" class="form-control">
+                        
+                        </div>
+                    </div>
+                </div>
+
+                
+
+               
+
+            </div>
+
+
+    </div>
+   
+
+
+
+
+
+
+
+
+   
+
+    <div class="csv" id="csv">
+
+    </div>
+
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-bottom" id="bottomNav" style="display: none;">
+        <div>
+            <ul class="nav navbar-nav" id="bottomNavContent">
+
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+
+        var initialTableDataArray = [];
+        var selectedAgent = '';
+        var cpn_name;
+
+        $('.show-after-upload').hide();
+
+        function exportTableToCSV() {
+            var mSelectedAgent = $("#agentDropdown").val().toString().replace(/,/g, ' ');
+            var mSelectedCustomer = $("#customerDropdown").val().toString().replace(/,/g, ' ');
+
+            var finalTableDataArray = [];
+            var filename = "label_" + document.getElementById("fileUpload").files[0].name;
+            var csv = [];
+            var rows = document.querySelectorAll("table tr");
+
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = [];
+                var cols = rows[i].querySelectorAll("td, th");
+
+                for (var j = 0; j < cols.length; j++) {
+
+                    if (i > 0) {
+                        if (j == 12 || j == 15) {
+                            var d = "topic" + i + "c" + j;
+
+                            var e = document.getElementById(d);
+
+                            var strVlaue = '';
+                            if (e.innerText.trim() == 'Dropdown') {
+                                strVlaue = '';
+                            } else {
+                                strVlaue = e.innerText;
+                            }
+
+                            row.push(strVlaue.trim());
+                        }
+                        else if (j == 5 || j == 8) {
+                            var dp = "promise" + i + "c" + j;
+
+                            var ep = document.getElementById(dp);
+                            var strVlaue = ep.options[ep.selectedIndex].text;
+                            row.push(strVlaue.trim());
+                        }
+                        else {
+                            row.push(cols[j].textContent.trim());
+                        }
+                    }
+                    else { row.push(cols[j].textContent.trim()); }
+
+
+                }
+
+                var row2 = [...row]
+
+                var start = row2.length - 3;
+
+
+                row2.splice(start, 3);
+                finalTableDataArray.push(row2.join(""));
+
+
+
+        if(i != 0){
+            if (initialTableDataArray[i] != finalTableDataArray[i]) {
+                            rows[i].lastChild.firstChild.textContent = mSelectedCustomer;
+                            row[cols.length - 1] = mSelectedCustomer;
+                            rows[i].lastChild.previousSibling.firstChild.textContent = mSelectedAgent;
+                            row[cols.length - 2] = mSelectedAgent;
+
+                        }
+        }
+               
+
+                var finalRow = row.join(",");
+                csv.push(finalRow);
+            }
+
+            // console.log('Initial array 1: ' + initialTableDataArray[1]);
+            // console.log('Final  array 1: ' + finalTableDataArray[1]);
+
+            // console.log('Initial array 2: ' + initialTableDataArray[2]);
+            // console.log('Final  array 2: ' + finalTableDataArray[2]);
+
+
+            // console.log('Initial array 3: ' + initialTableDataArray[3]);
+            // console.log('Final  array 3: ' + finalTableDataArray[3]);
+
+
+            initialTableDataArray = finalTableDataArray;
+            download_csv(csv.join("\n"), filename);
+
+        }
+        function download_csv(csv, filename) {
+            var csvFile;
+            var downloadLink;
+            csvFile = new Blob([csv], { type: "text/csv" });
+            downloadLink = document.createElement("a");
+            downloadLink.download = filename;
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+
+
+
+
+
+        }
+
+        function getCSV() {
+
+            var columnNamesArray = [];
+
+            $('#cpn_name').val('')
+
+            document.getElementById("Submit").setAttribute("hidden", "true");
+            var fileUpload = document.getElementById("fileUpload");
+
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var table = document.createElement("table");
+                    $('.show-after-upload').show();
+
+                    table.setAttribute("id", "newTable");
+                    table.setAttribute("class", "table table-hover");
+
+                    var rows = e.target.result.split("\n");
+
+
+
+
+                    if (rows[rows.length - 1].length == 0) {
+                        rows.splice(rows.length - 1, 1)
+                    }
+                    var firstRowText = 'fnum,line,speaker,paragraph,annotators_name,promise1,pwrd1,promise_phrase1,promise2,pwrd2,promise_phrase2,promise_comment,TOPIC1,twrd1,pharse1,TOPIC2,twrd2,pharse2,sentiment_phrase1,sentiment_phrase2,cpn_name,agent,customer';
+                    rows[0] = firstRowText;
+
+
+                    var textBox = document.createElement('input');
+                    textBox.type = "text";
+
+
+
+                    for (var i = 0; i < rows.length; i++) {
+                        var cells = rows[i].split(",");
+
+                        if (i != 0 && cells.length <= 22) {
+
+                            rows[i] = rows[i] + ',,,,,,,,,,,';
+                            cells = rows[i].split(",");
+                        }
+
+
+                        if (cells.length > 1) {
+
+                            var row = table.insertRow(-1);
+
+
+
+                            if (i == 0) {
+                                row.setAttribute("id", "tableHead");
+
+                            }
+
+
+                            var rowValue = [];
+
+                            for (var j = 0; j < cells.length; j++) {
+
+
+
+                                var cell = row.insertCell(-1);
+                                var id = "topic" + i + "c" + j;
+                                var promiseid = "promise" + i + "c" + j;
+
+                                cell.innerHTML = cells[j];
+
+
+
+                                if (i == 0) {
+
+
+                                    cell.innerHTML = "<b>" + cells[j] + "</b>";
+                                    var column = {}
+                                    column.name = cells[j];
+                                    column.id = j;
+                                    columnNamesArray.push(column);
+
+
+                                }
+
+                                cell.setAttribute("class", "col" + j);
+
+
+                                if (i > 0 && cells[j] == "") {
+
+                                    if (j == 12 || j == 15) {
+                                        cell.innerHTML = "<div class='dropdown dropdown-inline'> <a href='#' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' data-hover='dropdown' id='" + id + "'>Dropdown <span class='caret'></span></a> <ul class='dropdown-menu' role='menu'> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD DISC<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='Disconnect'><a href='#'>Disconnect</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD BILL<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value=' Bill_Explanation'><a href='#'> Bill_Explanation</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD EQIP<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='How_to_Setup_Activate'><a href='#'>How to Setup/Activate</a></li> <li class='dropdown_clickable' data-value='Setup_Activation_Issues'><a href='#'>Setup/Activation Issues</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD ACCT<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='Port_Status'><a href='#'>Port Status</a></li> <li class='dropdown_clickable' data-value='Assumption_of_Liability'><a href='#'>Assumption of Liability</a></li> <li class='dropdown_clickable' data-value='Insurance_(TEC/TMP)'><a href='#'>Insurance (TEC/TMP)</a></li> <li class='dropdown_clickable' data-value='Corporate_Information'><a href='#'>Corporate Information</a></li> <li class='dropdown_clickable' data-value='Call_Message_Block'><a href='#'>Call Message Block</a></li> <li class='dropdown_clickable' data-value='Change_MTN'><a href='#'>Change MTN</a></li> <li class='dropdown_clickable' data-value='Prepaid_Information'><a href='#'>Prepaid Information</a></li> <li class='dropdown_clickable' data-value='Spam_Spoof'><a href='#'> Spam/Spoof</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD TRBL<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='Voice'><a href='#'>Voice</a></li> <li class='dropdown_clickable' data-value='Date_Connection/Browser'><a href='#'>Date Connection/Browser</a></li> <li class='dropdown_clickable' data-value='Device Settings & Issues'><a href='#'>Device Settings & Issues</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD PYMT<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='Promise to Pay'><a href='#'>Promise to Pay</a></li> <li class='dropdown_clickable' data-value='Make Payment'><a href='#'>Make Payment</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD INTL<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='Travel Pass'><a href='#'>Travel Pass</a></li> <li class='dropdown_clickable' data-value='International Plan Feature Optl'><a href='#'>International Plan Feature Optl</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD PLAN<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='Review Current PLAN'><a href='#'>Review Current PLAN</a></li> <li class='dropdown_clickable' data-value='Add/Change'><a href='#'>Add/Change</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD UPGR<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='Marketing/Promotional Offers'><a href='#'>Marketing/Promotional Offers</a></li> <li class='dropdown_clickable' data-value=' Device Trade in/Recycling'><a href='#'> Device Trade in/Recycling</a></li> </ul> </li> <li class='dropdown'> <a href='#' class='dropdown_opener'>CD BILL ELEU<span class='caret'></span></a> <ul class='dropdown-menu dropdownhover-right'> <li class='dropdown_clickable' data-value='Discount'><a href='#'>Discount</a></li> </ul> </li> </ul> </div>"
+                                    }
+                                    else if (j == 5 || j == 8) {
+                                        cell.innerHTML = "<div contenteditable><select id=" + promiseid + "><option></option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option><option>promise_cancelled</option></select></div>"
+                                    } else if (j == 4) {
+                                        cell.innerHTML = "<div contenteditable style='width:100px;'></div>";
+                                    }
+
+                                    else {
+
+                                        cell.innerHTML = "<div contenteditable></div>";
+                                    }
+
+
+                                }
+                                else if (i > 0 && cells[j] != "") {
+
+                                    if (j == 12 || j == 15) {
+                                        cell.innerHTML = "<div class='dropdown dropdown-inline'><a href='#' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' data-hover='dropdown' id='" + id + "'>" + cells[j] + " <span class='caret'></span></a><ul class='dropdown-menu' role='menu'><li class='dropdown'><a href='#' class='dropdown_opener'>Internet<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='Account_setup'><a href='#'>Account_setup</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_all'><a href='#'>i_Can_t_connect_all</a></li><li class='dropdown_clickable' data-value='i_Can_t_connect_device'><a href='#'>i_Can_t_connect_device</a></li><li class='dropdown_clickable' data-value='i_Customer_Equipment'><a href='#'>i_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='i_Email'><a href='#'>i_Email</a></li><li class='dropdown_clickable' data-value='i_Mobile_TV_apps'><a href='#'>i_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='i_Slow_connection'><a href='#'>i_Slow_connection</a></li><li class='dropdown_clickable' data-value='i_Wi_Fi'><a href='#'>i_Wi_Fi</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>Phone<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_Services_out'><a href='#'>All_Services_out</a></li><li class='dropdown_clickable' data-value='p_Calling_features'><a href='#'>p_Calling_features</a></li><li class='dropdown_clickable' data-value='p_Can_t_be_called'><a href='#'>p_Can_t_be_called</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_long_distance'><a href='#'>p_Can_t_call_long_distance</a></li><li class='dropdown_clickable' data-value='p_Can_t_call_out'><a href='#'>p_Can_t_call_out</a></li><li class='dropdown_clickable' data-value='p_CPE_Jacks'><a href='#'>p_CPE_Jacks</a></li><li class='dropdown_clickable' data-value='p_Miscellaneous'><a href='#'>p_Miscellaneous</a></li><li class='dropdown_clickable' data-value='p_No_Dial_Tone'><a href='#'>p_No_Dial_Tone</a></li><li class='dropdown_clickable' data-value='p_Noise_Static'><a href='#'>p_Noise_Static</a></li><li class='dropdown_clickable' data-value='p_ONT_battery'><a href='#'>p_ONT_battery</a></li><li class='dropdown_clickable' data-value='p_Order_billing'><a href='#'>p_Order_billing</a></li><li class='dropdown_clickable' data-value='p_Physical_Outside'><a href='#'>p_Physical_Outside</a></li><li class='dropdown_clickable' data-value='p_Self_install'><a href='#'>p_Self_install</a></li><li class='dropdown_clickable' data-value='p_Voicemail'><a href='#'>p_Voicemail</a></li></ul></li><li class='dropdown'><a href='#' class='dropdown_opener'>TV<span class='caret'></span></a><ul class='dropdown-menu dropdownhover-right'><li class='dropdown_clickable' data-value='All_channels_out'><a href='#'>All_channels_out</a></li><li class='dropdown_clickable' data-value='t_Audio_problems'><a href='#'>t_Audio_problems</a></li><li class='dropdown_clickable' data-value='t_Cable_card'><a href='#'>t_Cable_card</a></li><li class='dropdown_clickable' data-value='t_Caller_ID_on_TV'><a href='#'>t_Caller_ID_on_TV</a></li><li class='dropdown_clickable' data-value='t_Customer_Equipment'><a href='#'>t_Customer_Equipment</a></li><li class='dropdown_clickable' data-value='t_DVR_functionality'><a href='#'>t_DVR_functionality</a></li><li class='dropdown_clickable' data-value='t_Interactive_Media_Guide'><a href='#'>t_Interactive_Media_Guide</a></li><li class='dropdown_clickable' data-value='t_Mobile_TV_apps'><a href='#'>t_Mobile_TV_apps</a></li><li class='dropdown_clickable' data-value='t_On_Demand'><a href='#'>t_On_Demand</a></li><li class='dropdown_clickable' data-value='t_Pay_per_view'><a href='#'>t_Pay_per_view</a></li><li class='dropdown_clickable' data-value='t_Remote_controls'><a href='#'>t_Remote_controls</a></li><li class='dropdown_clickable' data-value='t_Set_top_box_problems'><a href='#'>t_Set_top_box_problems</a></li><li class='dropdown_clickable' data-value='t_Some_Channels_Out'><a href='#'>t_Some_Channels_Out</a></li><li class='dropdown_clickable' data-value='t_STB_activation'><a href='#'>t_STB_activation</a></li><li class='dropdown_clickable' data-value='t_TV_content_questions'><a href='#'>t_TV_content_questions</a></li></ul></li><li class='divider'></li><li class='dropdown_clickable' data-value='Other'><a href='#'>Other</a></li></ul></div>"
+                                    }
+                                    else if (j == 5 || j == 8) {
+                                        cell.innerHTML = "<div contenteditable><select id=" + promiseid + "><option>" + cells[j] + "</option><option>Call_back</option><option>Drop_ship</option><option>Dispatch</option><option>Send_to_offline</option><option>No_charge</option><option>Transfer</option><option>First_appointment</option><option>Sooner_appointment</option><option>Will_be_there_today</option><option>Refer_to_other_group</option><option>Outage_will_be_resolved_by_time</option><option>OTHER</option><option>NO_PROMISE</option><option>BROKEN_PROMISE</option><option>promise_cancelled</option></select></div>"
+                                    } else if (j == 4) {
+                                        cell.innerHTML = "<div contenteditable style='width:100px;'>" + cells[j] + "</div>";
+
+                                    } else if (j == 3) {
+
+                                        cell.innerHTML = "<div contenteditable>" + cells[j] + "</div>";
+
+                                       // row.setAttribute("class", cells[j].toLowerCase());
+                                    } else if (j == 20) {
+                                        $('#cpn_name').val(cells[j]);
+                                    
+                                    }
+                                    else {
+
+
+                                        cell.innerHTML = "<div contenteditable>" + cells[j] + "</div>";
+                                    }
+
+                                }
+                                rowValue.push(cells[j].trim());
+                            }
+
+                            var rowValue2 = [...rowValue];
+                            rowValue2.pop();
+                            initialTableDataArray.push(rowValue2.join(""));
+                        }
+
+
+                    }
+                    var dvCSV = document.getElementById("csv");
+                    dvCSV.innerHTML = "";
+                    dvCSV.appendChild(table);
+
+
+                    var finalColumnsarr = columnNamesArray.filter(function (el) {
+                        return el.name != '';
+                    });
+
+                    $('#bottomNav').css("display", "block");
+
+                    $('#bottomNavContent').html('');
+
+                    var checked = 'checked';
+                    finalColumnsarr.forEach(element => {
+                        if (element.name === 'cpn_name') {
+                            $('.col' + element.id).hide();
+                            //console.log(element)
+                            cpn_name = element;
+
+                        } else  {
+
+                            if(element.name === 'TOPIC1'){
+                               checked = '';
+                            }
+
+                            $('#bottomNavContent').append(`<li style="color:white; margin-right:8px;"><input type="checkbox"  class="toggle-columns" value="${element.id}" ${checked}> ${element.name}</li>`);
+
+                            if(checked === ''){
+                                $('.col' + element.id).hide();
+                            }
+                        }
+
+                    });
+
+
+                    $('.toggle-columns').change(function () {
+                        var value = this.value;
+                        if (this.checked) {
+                            $('.col' + value).show();
+                        } else {
+                            $('.col' + value).hide();
+                        }
+                    });
+                }
+                reader.readAsText(fileUpload.files[0]);
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+
+
+
+        }
+
+
+        $('body').on('click', '.dropdown_clickable', function (event) {
+            event.preventDefault();
+            var value = $(this).attr('data-value');
+            if (value != 'Other') {
+                var dropdownElement = $(this).closest('ul').closest('li').closest('ul').prev('a')
+                dropdownElement.html(value);
+                $('.dropdown').removeClass('open');
+
+            } else {
+                var dropdownElement = $(this).closest('ul').prev('a')
+                dropdownElement.html(value);
+                dropdownElement.parent('div').find('.dropdown').removeClass('open');
+            }
+
+
+
+        });
+
+
+        $('body').on('click', '.dropdown', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var targetElement = $(this);
+
+            targetElement.parent('ul').find('.dropdown').removeClass("open");
+
+            if (!targetElement.hasClass('open')) {
+                targetElement.addClass('open');
+            } else {
+                targetElement.removeClass('open');
+            }
+
+        });
+
+
+        $('#cpn_name').on('input', function () {
+            var value = $(this).val();
+            $('.col' + cpn_name.id).eq(1).html(value);
+        });
+    </script>
+
+
+</body>
+
+</html>
