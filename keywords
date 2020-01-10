@@ -38,3 +38,15 @@ CD INTL
 CD PLAN
 CD UPGR
 CD BILL ELEU
+
+
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD DISC </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD BILL </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD EQIP </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD ACCT </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD TRBL </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD PYMT </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD INTL </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD PLAN </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD UPGR </a> </li>
+ <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD BILL ELEU </a> </li>
