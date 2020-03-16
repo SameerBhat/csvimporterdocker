@@ -144,3 +144,270 @@ body {
 .context-menu__itemmultiple{
     position: relative;
 }
+
+
+/* table styles */
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+  length: 50%;
+}
+
+div#csv {
+  margin-bottom: 52px !important;
+}
+
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+  background-color: "#5868c5";
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  color: #464C4C;
+}
+
+tr {
+  color: #464C4C;
+}
+
+p {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+textarea {
+  width: 600px;
+  padding: 3px;
+  border: none;
+}
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+button {
+  border-radius: 10px;
+  font: bold;
+  background-color: #d3d3d3;
+  color: #cf0000;
+}
+
+div {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+
+.speaker1,
+.table-hover>tbody>tr.speaker1:hover,
+table>tbody>tr.speaker1>td {
+  background: #28a745;
+  color: #fff !important;
+}
+
+tr.speaker1>td>div>select {
+  color: #000 !important;
+}
+
+
+
+#tableHead td {
+  position: sticky;
+  top: 120px;
+  background: steelblue;
+  color: white;
+}
+
+.nav>li>a {
+  position: relative;
+  display: block;
+  padding: 4px 6px;
+}
+
+
+/* STYLES FOR MULTI LEVEL DROPDOWN */
+.dropdown .dropdown-menu .caret {
+  border: 4px solid transparent;
+  border-left-color: #000;
+  float: right;
+  margin-top: 6px;
+}
+
+.dropdown-menu {
+  min-width: 250px;
+}
+
+.dropdown-menu>li.open>a {
+  background-color: #F5F5F5;
+  color: #262626;
+  text-decoration: none;
+}
+
+.dropdown-menu .dropdown-menu {
+  left: 100%;
+  margin: 0;
+  right: auto;
+  top: -1px;
+}
+
+.dropdown-menu-right .dropdown-menu,
+.navbar-right .dropdown-menu .dropdown-menu,
+.pull-right .dropdown-menu .dropdown-menu {
+  left: auto;
+  right: 100%;
+}
+
+.dropdown-menu.animated {
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+}
+
+.dropdown-menu.animated:before {
+  content: " ";
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.dropdownhover-top {
+  margin-bottom: 2px;
+  margin-top: 0;
+}
+
+.navbar-fixed-bottom .dropdown-menu .dropdown-menu,
+.dropdownhover-top .dropdown-menu {
+  bottom: -1px;
+  top: auto;
+}
+
+.navbar-nav>li>.dropdown-menu {
+  margin-bottom: 0;
+}
+
+.dropdownhover-bottom {
+  -webkit-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+}
+
+.dropdownhover-left {
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+}
+
+.dropdownhover-right {
+  -webkit-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+}
+
+.dropdownhover-top {
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+}
+
+
+.navbar-brand {
+  background-image: url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNjU4LjIgMTQ2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2NTguMiAxNDY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj48Zz48cG9seWdvbiBmaWxsPSIjRDUyQjFFIiBwb2ludHM9IjY0My43LDAgNjA3LjgsNzYuOCA1OTQuMyw0Ny43IDU3OS43LDQ3LjcgNjAxLjksOTUuMyA2MTMuNyw5NS4zIDY1OC4yLDAgCSIvPjxwYXRoIGQ9Ik00ODkuNywxNDIuNmgyOC45Vjg5LjdjMC0xMi4xLDctMjAuNiwxNy40LTIwLjZjMTAsMCwxNS4yLDcsMTUuMiwxNy4xdjU2LjRoMjguOVY4MC43YzAtMjEtMTIuNi0zNS44LTMzLTM1LjggYy0xMywwLTIyLjEsNS42LTI4LjksMTUuOGgtMC42di0xM2gtMjhMNDg5LjcsMTQyLjZMNDg5LjcsMTQyLjZ6IE00MzIuOSw0NS4xYy0zMC4yLDAtNTAuNCwyMS43LTUwLjQsNTAuMyBjMCwyOC40LDIwLjIsNTAuMyw1MC40LDUwLjNzNTAuNC0yMS45LDUwLjQtNTAuM0M0ODMuNCw2Ni44LDQ2My4xLDQ1LjEsNDMyLjksNDUuMXogTTQzMi43LDEyNC4zYy0xMy43LDAtMjEtMTEuNS0yMS0yOC45CWMwLTE3LjYsNy4yLTI4LjksMjEtMjguOWMxMy43LDAsMjEuMywxMS4zLDIxLjMsMjguOUM0NTQuMSwxMTIuOCw0NDYuNSwxMjQuMyw0MzIuNywxMjQuM3ogTTMwMC4xLDE0Mi42aDgxLjJ2LTIyLjhoLTQ2di0wLjYJbDQ0LTQ5LjNWNDcuNmgtNzkuMnYyMi45aDQ0LjV2MC42bC00NC41LDQ5LjdMMzAwLjEsMTQyLjZMMzAwLjEsMTQyLjZ6IE0yNjMsMTQyLjZoMjkuMVY0Ny43SDI2M1YxNDIuNnogTTE5NS41LDE0Mi42aDI5Vjk5CWMwLTE5LjgsMTEuOS0yOC42LDMwLTI2LjFoMC42di0yNWMtMS41LTAuNi0zLjItMC43LTUuOS0wLjdjLTExLjMsMC0xOC45LDUuMi0yNS40LDE2LjNoLTAuNlY0Ny43aC0yNy43VjE0Mi42eiBNMTQyLjMsMTI0LjQJYy0xMi44LDAtMjAuNi04LjMtMjIuMS0yMS4xaDY4LjRjMC4yLTIwLjQtNS4yLTM2LjctMTYuNS00Ni45Yy04LTcuNC0xOC41LTExLjUtMzEuOS0xMS41Yy0yOC42LDAtNDguNCwyMS43LTQ4LjQsNTAuMQljMCwyOC42LDE4LjksNTAuNCw1MC4zLDUwLjRjMTEuOSwwLDIxLjMtMy4yLDI5LjEtOC41YzguMy01LjcsMTQuMy0xNC4xLDE1LjktMjIuNGgtMjcuOEMxNTYuNiwxMjAuNywxNTAuOCwxMjQuNCwxNDIuMywxMjQuNHogTTE0MC44LDY1LjZjMTAuMiwwLDE3LjIsNy42LDE4LjQsMTguN2gtMzguOEMxMjIuNyw3My4xLDEyOC44LDY1LjYsMTQwLjgsNjUuNnogTTM0LDE0Mi42aDMwLjRsMzMtOTQuOUg2OC4zbC0xOC41LDYxaC0wLjQJbC0xOC41LTYxSDFMMzQsMTQyLjZ6IE0yNjMsMTMuOWgyOS4xdjI1LjhIMjYzVjEzLjl6Ii8+PC9nPjwvc3ZnPg==');
+  height: 50px;
+  width: 200px;
+  display: block;
+  background-repeat: no-repeat;
+}
+
+.navbar .container {
+  padding: 15px;
+
+}
+
+.title-name {
+  background: url("https://ss7.vzw.com/is/image/VerizonWireless/exp-super-mini-banner-holiday-d?&scl=1") no-repeat center;
+  background-size: cover;
+  max-width: 100%;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  height: 84px;
+  border-bottom: 1px solid #d8dada;
+  margin-top: 121px;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+#selectAgentContainers{
+  margin-top: 20px;
+}
+.form-inline {
+padding: 12px;
+}
+
+.circular-button-fab{
+border-radius: 30px;
+color: #fff;
+background-color: #d9534f;
+border-color: #d43f3a;
+position: fixed;
+bottom: 0;
+right: 0;
+margin: 45px;
+padding: 16px;
+width: 60px;
+height: 60px;
+text-align: center;
+font-size: 20px;
+margin-bottom: 70px;
+z-index: 1003;
+
+}
+
+.circular-button-fab:hover{
+background-color: #d43f3a;
+cursor:pointer;
+
+}
+.navbar-default {
+background-color: #fff ;
+border-bottom: 1px solid #d8dada;
+
+
+
+}
+.nav-bar-secondary{
+width: 100%;
+height: 100%;
+background: black;
+color: white;
+text-align: center;
+}
+
+.nav-bar-secondary .row{
+padding: 10px;
+
+}
+.nav-links, .nav-links:hover{
+text-decoration: underline;
+color: white;
+}
+
+tr#tableHead td {
+z-index: 1002;
+}
+
+.nav>li {
+display: inline !important;
+}

@@ -2,22 +2,7 @@
   
     "use strict";
   
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
-    //
-    // H E L P E R    F U N C T I O N S
-    //
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
-  
-    /**
-     * Function to check if we clicked inside an element with a particular class
-     * name.
-     * 
-     * @param {Object} e The event
-     * @param {String} className The class name to check against
-     * @return {Boolean}
-     */
+
     function clickInsideElement( e, className ) {
       var el = e.srcElement || e.target;
       
@@ -34,12 +19,7 @@
       return false;
     }
   
-    /**
-     * Get's exact position of event.
-     * 
-     * @param {Object} e The event passed in
-     * @return {Object} Returns the x and y position
-     */
+   
     function getPosition(e) {
       var posx = 0;
       var posy = 0;
@@ -60,17 +40,7 @@
       }
     }
   
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
-    //
-    // C O R E    F U N C T I O N S
-    //
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////
-    
-    /**
-     * Variables.
-     */
+
     var contextMenuClassName = "context-menu";
     var contextMenuItemClassName = "context-menu__item";
     var contextMenuLinkClassName = "context-menu__link";
@@ -153,18 +123,14 @@
       }
     }
   
-    /**
-     * Window resize event listener
-     */
+   
     function resizeListener() {
       window.onresize = function(e) {
         toggleMenuOff();
       };
     }
   
-    /**
-     * Turns the custom context menu on.
-     */
+  
     function toggleMenuOn() {
       if ( menuState !== 1 ) {
         menuState = 1;
@@ -172,9 +138,7 @@
       }
     }
   
-    /**
-     * Turns the custom context menu off.
-     */
+   
     function toggleMenuOff() {
       if ( menuState !== 0 ) {
         menuState = 0;
@@ -182,11 +146,7 @@
       }
     }
   
-    /**
-     * Positions the menu properly.
-     * 
-     * @param {Object} e The event
-     */
+   
     function positionMenu(e) {
       clickCoords = getPosition(e);
       clickCoordsX = clickCoords.x;
@@ -220,19 +180,13 @@
     //   }
     }
   
-    /**
-     * Dummy action function that logs an action when a menu item link is clicked
-     * 
-     * @param {HTMLElement} link The link that was clicked
-     */
+   
     function menuItemListener( link ) {
       console.log( "Task ID - " + taskItemInContext.getAttribute("data-id") + ", Task action - " + link.getAttribute("data-action"));
       toggleMenuOff();
     }
   
-    /**
-     * Run the app.
-     */
+    
     init();
   
   })();

@@ -4,23 +4,23 @@ CD BILL, Bill Explanation
 CD EQIP, How to Setup/Activate
 
 
-CD ACCT, Port Status
-CD TRBL, Voice
+CD ACCT, "Port Status",
+CD TRBL, "Voice",
 CD PYMT, Promise to Pay
 CD INTL, Travel Pass
-CD ACCT, Assumption of Liability
-CD TRBL, Date Connection/Browser
-CD TRBL, Device Settings & Issues
+CD ACCT, "Assumption of Liability",
+CD TRBL, "Date Connection/Browser",
+CD TRBL, "Device Settings & Issues",
 CD PLAN, Review Current PLAN
-CD ACCT, Insurance (TEC/TMP)
-CD ACCT, Corporate Information
-CD ACCT, Call Message Block
-CD ACCT, Change MTN
+CD ACCT, "Insurance (TEC/TMP)",
+CD ACCT, "Corporate Information",
+CD ACCT, "Call Message Block",
+CD ACCT, "Change MTN",
 CD PLAN, Add/Change
-CD ACCT, Prepaid Information
+CD ACCT, "Prepaid Information",
 CD UPGR, Marketing/Promotional Offers
 CD UPGR, Device Trade in/Recycling
-CD ACCT, Spam/Spoof
+CD ACCT, "Spam/Spoof",
 CD EQIP, Setup/Activation Issues
 CD INTL, International Plan Feature Optl
 CD BILL ELEU, Discount
@@ -50,3 +50,30 @@ CD BILL ELEU
  <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD PLAN </a> </li>
  <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD UPGR </a> </li>
  <li class="context-menu__item"> <a href="#" class="context-menu__link" data-action="Edit"> CD BILL ELEU </a> </li>
+
+
+{"CD DISC":["Disconnect"],
+"CD BILL":["Bill Explanation"],
+"CD EQIP":["How to Setup/Activate", "Setup/Activation Issues"],
+"CD ACCT":["Port Status","Assumption of Liability","Insurance (TEC/TMP)","Corporate Information","Call Message Block","Change MTN","Prepaid Information","Spam/Spoof",],
+"CD TRBL":["Voice","Date Connection/Browser","Device Settings & Issues",],"CD PYMT":[],
+"CD INTL":["Travel Pass","International Plan Feature Optl"],
+"CD PLAN":["Review Current PLAN", "Add/Change"],
+"CD UPGR":["Marketing/Promotional Offers","Device Trade in/Recycling"],
+"CD BILL ELEU":["Discount"]}
+
+"Call_back",
+"Drop_ship",
+"Dispatch",
+"Send_to_offline",
+"No_charge",
+"Transfer",
+"First_appointment",
+"Sooner_appointment",
+"Will_be_there_today",
+"Refer_to_other_group",
+"Outage_will_be_resolved_by_time",
+"OTHER",
+"NO_PROMISE",
+"BROKEN_PROMISE",
+"promise_cancelled",
